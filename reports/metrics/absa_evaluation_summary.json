@@ -1,0 +1,51 @@
+{
+  "evaluation_type": "automatic_ground_truth_and_domain_transfer",
+  "human_annotation_completed": false,
+  "human_annotation_metrics_reported": false,
+  "primary_automatic_evaluation": {
+    "ground_truth": "RSAT dissatisfaction_reason mapped to six canonical aspects",
+    "text_source": "RSAT-linked resolution_description",
+    "split": "Out-of-Time Test Set (2025)",
+    "sample_count": 173,
+    "rule_based_baseline": {
+      "accuracy": 0.3237,
+      "macro_f1": 0.1668
+    },
+    "tfidf_classifier": {
+      "accuracy": 0.2081,
+      "macro_f1": 0.142,
+      "delta_f1_vs_baseline": -0.0248
+    }
+  },
+  "transformer_evaluation": {
+    "model": "Transformer (distilbert-base-uncased)",
+    "split": "The same group-deduplicated 2025 split used by the rule and TF-IDF models",
+    "metrics": {
+      "test_accuracy": 0.2254,
+      "test_macro_f1": 0.1191,
+      "test_loss": 1.7064
+    },
+    "macro_f1": 0.1191,
+    "delta_macro_f1_vs_tfidf_on_same_split": -0.0229
+  },
+  "duplicate_control": {
+    "raw_labelled_rows": 250703,
+    "first_year_rows_before_pair_deduplication": 72310,
+    "unique_normalized_descriptions": 593,
+    "unique_text_label_pairs": 1647,
+    "descriptions_with_multiple_aspect_labels": 460,
+    "split_counts": {
+      "2023": 1325,
+      "2024": 149,
+      "2025": 173
+    },
+    "cross_split_text_overlap_counts": {
+      "2023_2024": 0,
+      "2023_2025": 0,
+      "2024_2025": 0
+    },
+    "policy": "Each normalized description belongs only to its earliest observed year; only labels observed in that first year are eligible, then one row per description-aspect pair is retained."
+  },
+  "transfer_boundary": "311 resolution narratives are evaluated as a transfer target, not as unrestricted citizen commentary.",
+  "manual_annotation_status": "Future work; no synthetic human labels are used."
+}

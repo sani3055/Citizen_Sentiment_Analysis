@@ -1,0 +1,19 @@
+{
+  "sample_size": 600,
+  "seed": 42,
+  "source": "data/raw/nyc311_raw.parquet",
+  "label_set": [
+    "Information Intake",
+    "Issue Correction",
+    "Other",
+    "Response Time",
+    "Status Updates",
+    "Work Quality"
+  ],
+  "labels_required": [
+    "annotator_1_label",
+    "annotator_2_label",
+    "adjudicated_label"
+  ],
+  "instruction": "Complete labels manually; leave no blank labels before evaluation."
+}

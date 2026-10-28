@@ -1,0 +1,75 @@
+{
+  "task": "Aspect-Based Sentiment Analysis (ABSA) Grievance Attribution",
+  "taxonomy": [
+    "Information Intake",
+    "Issue Correction",
+    "Other",
+    "Response Time",
+    "Status Updates",
+    "Work Quality"
+  ],
+  "evaluation_split": "Out-of-Time Test Set (2025)",
+  "test_sample_count": 173,
+  "duplicate_control": {
+    "raw_labelled_rows": 250703,
+    "first_year_rows_before_pair_deduplication": 72310,
+    "unique_normalized_descriptions": 593,
+    "unique_text_label_pairs": 1647,
+    "descriptions_with_multiple_aspect_labels": 460,
+    "split_counts": {
+      "2023": 1325,
+      "2024": 149,
+      "2025": 173
+    },
+    "cross_split_text_overlap_counts": {
+      "2023_2024": 0,
+      "2023_2025": 0,
+      "2024_2025": 0
+    },
+    "policy": "Each normalized description belongs only to its earliest observed year; only labels observed in that first year are eligible, then one row per description-aspect pair is retained."
+  },
+  "common_test_definition": "All ABSA models are evaluated on the same deduplicated 2025 text-group test split.",
+  "models": {
+    "rule_based_baseline": {
+      "accuracy": 0.3237,
+      "macro_f1": 0.1668
+    },
+    "tfidf_logistic_regression": {
+      "accuracy": 0.2081,
+      "macro_f1": 0.142,
+      "delta_f1_vs_baseline": -0.0248
+    }
+  },
+  "per_aspect_breakdown": {
+    "Information Intake": {
+      "rule_f1": 0.2182,
+      "classifier_f1": 0.2373,
+      "support": 19
+    },
+    "Issue Correction": {
+      "rule_f1": 0.5434,
+      "classifier_f1": 0.3516,
+      "support": 65
+    },
+    "Other": {
+      "rule_f1": 0.0,
+      "classifier_f1": 0.1429,
+      "support": 36
+    },
+    "Response Time": {
+      "rule_f1": 0.1143,
+      "classifier_f1": 0.0645,
+      "support": 16
+    },
+    "Status Updates": {
+      "rule_f1": 0.0,
+      "classifier_f1": 0.0556,
+      "support": 27
+    },
+    "Work Quality": {
+      "rule_f1": 0.125,
+      "classifier_f1": 0.0,
+      "support": 10
+    }
+  }
+}

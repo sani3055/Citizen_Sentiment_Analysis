@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this project, please cite it using the metadata below."
+title: "Citizen Sentiment Analysis of Municipal Services Using Transformer-Based NLP"
+type: software
+authors:
+  - family-names: Panbiharwala
+    given-names: Taher
+  - family-names: Bhandari
+    given-names: Sanidhya
+  - family-names: Deb
+    given-names: Chinmoy
+version: 1.0.0
+date-released: 2026-10-20
+institution: "Vellore Institute of Technology, Vellore"
+keywords:
+  - smart cities
+  - municipal services
+  - natural language processing
+  - sentiment analysis
+  - NYC 311
+  - out-of-time forecasting
+license: "NOASSERTION"
+

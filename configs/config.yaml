@@ -1,0 +1,82 @@
+project:
+  name: "Citizen Sentiment Analysis of Municipal Services Using Transformer-Based NLP"
+  course: "BCSE316L — Design of Smart Cities"
+  project_id: 15
+  team_id: 16
+  random_seed: 42
+  # Decisions confirmed Oct 2026
+  external_corpus: "cfpb/consumer-finance-complaints"  # HuggingFace dataset ID
+  compute_platform: "kaggle"  # local | kaggle | colab
+  absa_strategy: "rule_baseline_plus_classifier"  # Option A+B combined
+
+data:
+  nyc_311_endpoint: "https://data.cityofnewyork.us/resource/erm2-nwe9.json"
+  rsat_endpoint: "https://data.cityofnewyork.us/resource/5ijn-vbdv.json"
+  raw_dir: "data/raw"
+  processed_dir: "data/processed"
+  start_year: 2023
+  end_year: 2025
+  operational_end_year: 2024
+  min_cell_samples: 10
+  repeat_window_days: [7, 14, 30]
+
+nlp:
+  models:
+    vader:
+      neg_threshold: -0.05
+      pos_threshold: 0.05
+    bert:
+      model_name: "bert-base-uncased"
+      max_seq_length: 128
+      batch_size: 16
+      epochs: 3
+      learning_rate: 2.0e-5
+      weight_decay: 0.01
+    roberta:
+      model_name: "roberta-base"
+      max_seq_length: 128
+      batch_size: 16
+      epochs: 3
+      learning_rate: 2.0e-5
+      weight_decay: 0.01
+  absa:
+    aspect_categories:
+      - "Issue Correction"
+      - "Response Time"
+      - "Status Updates"
+      - "Work Quality"
+      - "Information Intake"
+  topics:
+    num_topics_lda: 10
+    bertopic_embedding_model: "all-MiniLM-L6-v2"
+    train_end_month: 7
+
+outcomes:
+  target_variables:
+    - "mean_resolution_delay_hours"
+    - "repeat_request_rate_14d"
+  delay_outlier_percentile: 99.0
+
+models:
+  baseline:
+    algorithm: "ridge"
+    alpha: 1.0
+  augmented:
+    algorithm: "ridge"
+    alpha: 1.0
+  tree_models:
+    - "random_forest"
+    - "gradient_boosting"
+  cv_folds: 5
+  temporal_split:
+    train_year: 2023
+    # Current local NYC 311 snapshot has only 21 records in 2025.  The
+    # reproducible test horizon is therefore 2024; this is reported honestly
+    # throughout the project rather than labeling 2024 as 2025.
+    val_year: 2023
+    test_year: 2024
+
+dashboard:
+  title: "NYC Municipal Services Citizen Sentiment & Outcome Predictor"
+  port: 8501
+  theme: "dark"

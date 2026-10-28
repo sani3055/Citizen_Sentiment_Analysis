@@ -1,0 +1,18 @@
+{
+  "resolution_delay": {
+    "unit": "hours",
+    "total_records": 4204783,
+    "mean_raw_delay_hours": 108.79,
+    "median_raw_delay_hours": 2.85,
+    "p95_delay_hours": 369.75,
+    "p99_delay_hours_winsorization_threshold": 2044.34,
+    "mean_winsorized_delay_hours": 79.34
+  },
+  "repeat_request_rates": {
+    "unit": "percentage",
+    "repeat_rate_7d_pct": 40.02,
+    "repeat_rate_14d_pct": 46.27,
+    "repeat_rate_30d_pct": 52.89
+  },
+  "total_cells_aggregated": 2100
+}

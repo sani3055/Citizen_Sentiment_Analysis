@@ -1,0 +1,56 @@
+# Python & Environments
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+ENV/
+
+# Data Files (Exclude raw big data and temporary exports)
+data/raw/*.csv
+data/raw/*.json
+data/processed/*.csv
+*.parquet
+
+# Model weights & large checkpoints
+artifacts/models/
+*.pt
+*.pth
+*.bin
+*.safetensors
+*.onnx
+notebooks/kaggle_absa_bundle.zip
+
+# Cache & Logs
+.cache/
+.pytest_cache/
+reports/junit.xml
+*.log
+
+# OS & IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local runtime data, credentials, and generated caches
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+.chart-data-*/
+tmp/
+node_modules/
+
+# Intermediate exports and visual QA output (final deliverables remain tracked)
+outputs/deck_unzip*/
+outputs/*_render/
+outputs/ppt_render*/
+outputs/deck_test*.zip
+outputs/minimal_test.pptx
+outputs/manuscript_preview.*
+outputs/manuscript_preview.txt
+outputs/journal_template_reference.pdf
+outputs/team16_second_level_comments.json
+outputs/~$*

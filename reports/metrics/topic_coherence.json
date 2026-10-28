@@ -1,0 +1,240 @@
+{
+  "lda": {
+    "num_topics": 10,
+    "coherence_c_v": 0.4675,
+    "topics": {
+      "Topic_1": [
+        "work",
+        "tree",
+        "parks",
+        "condition",
+        "overnight",
+        "permit",
+        "commercial",
+        "damaged"
+      ],
+      "Topic_2": [
+        "blocked",
+        "summons",
+        "access",
+        "driveway",
+        "responsible",
+        "issued",
+        "upon",
+        "gone"
+      ],
+      "Topic_3": [
+        "violations",
+        "hpd",
+        "information",
+        "gov",
+        "www",
+        "preservation",
+        "development",
+        "housing"
+      ],
+      "Topic_4": [
+        "condition",
+        "original",
+        "may",
+        "building",
+        "contact",
+        "duplicate",
+        "filed",
+        "complainant"
+      ],
+      "Topic_5": [
+        "responded",
+        "noise",
+        "loud",
+        "party",
+        "music",
+        "information",
+        "time",
+        "observed"
+      ],
+      "Topic_6": [
+        "heat",
+        "hot",
+        "water",
+        "building",
+        "condition",
+        "exists",
+        "please",
+        "new"
+      ],
+      "Topic_7": [
+        "parking",
+        "illegal",
+        "responded",
+        "condition",
+        "blocked",
+        "fix",
+        "took",
+        "violation"
+      ],
+      "Topic_8": [
+        "conditions",
+        "following",
+        "preservation",
+        "development",
+        "housing",
+        "violations",
+        "issued",
+        "inspected"
+      ],
+      "Topic_9": [
+        "sanitation",
+        "location",
+        "condition",
+        "found",
+        "investigated",
+        "trash",
+        "missed",
+        "collection"
+      ],
+      "Topic_10": [
+        "determined",
+        "necessary",
+        "responded",
+        "license",
+        "plate",
+        "abandoned",
+        "vehicle",
+        "noise"
+      ]
+    },
+    "fit_period": "2023-01 through 2023-07",
+    "fit_sample_records": 30000,
+    "test_period_text_used_for_fit": false
+  },
+  "bertopic": {
+    "embedding_model": "all-MiniLM-L6-v2",
+    "num_topics_discovered": 14,
+    "themes": {
+      "Theme_0": {
+        "name": "0_noise_loud_music_party",
+        "count": 3819,
+        "top_terms": [
+          "noise",
+          "loud",
+          "music",
+          "party",
+          "residential",
+          "the"
+        ]
+      },
+      "Theme_1": {
+        "name": "1_parking_illegal_police_the",
+        "count": 3404,
+        "top_terms": [
+          "parking",
+          "illegal",
+          "police",
+          "the",
+          "blocked",
+          "responded"
+        ]
+      },
+      "Theme_2": {
+        "name": "2_heat_hot_water_building",
+        "count": 1535,
+        "top_terms": [
+          "heat",
+          "hot",
+          "water",
+          "building",
+          "of",
+          "is"
+        ]
+      },
+      "Theme_3": {
+        "name": "3_sanitation_trash_location_investigated",
+        "count": 1165,
+        "top_terms": [
+          "sanitation",
+          "trash",
+          "location",
+          "investigated",
+          "collection",
+          "missed"
+        ]
+      },
+      "Theme_4": {
+        "name": "4_driveway_access_blocked_no",
+        "count": 1119,
+        "top_terms": [
+          "driveway",
+          "access",
+          "blocked",
+          "no",
+          "police",
+          "partial"
+        ]
+      },
+      "Theme_5": {
+        "name": "5_unsanitary_violations_pests_conditions",
+        "count": 596,
+        "top_terms": [
+          "unsanitary",
+          "violations",
+          "pests",
+          "conditions",
+          "following",
+          "preservation"
+        ]
+      },
+      "Theme_6": {
+        "name": "6_transportation_street_pothole_inspected",
+        "count": 502,
+        "top_terms": [
+          "transportation",
+          "street",
+          "pothole",
+          "inspected",
+          "repaired",
+          "problem"
+        ]
+      },
+      "Theme_7": {
+        "name": "7_abandoned_plate_vehicle_license",
+        "count": 459,
+        "top_terms": [
+          "abandoned",
+          "plate",
+          "vehicle",
+          "license",
+          "with",
+          "police"
+        ]
+      },
+      "Theme_8": {
+        "name": "8_plumbing_conditions_following_violations",
+        "count": 383,
+        "top_terms": [
+          "plumbing",
+          "conditions",
+          "following",
+          "violations",
+          "preservation",
+          "housing"
+        ]
+      },
+      "Theme_9": {
+        "name": "9_plaster_paint_violations_wall",
+        "count": 360,
+        "top_terms": [
+          "plaster",
+          "paint",
+          "violations",
+          "wall",
+          "conditions",
+          "following"
+        ]
+      }
+    },
+    "fit_period": "2023-01 through 2023-07",
+    "fit_sample_records": 15000,
+    "test_period_text_used_for_fit": false
+  }
+}

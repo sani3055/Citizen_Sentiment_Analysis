@@ -1,0 +1,29 @@
+{
+  "evaluation": "One-month-ahead held-out dashboard priority ranking",
+  "test_cells": 994,
+  "test_target_period": "2024",
+  "predicted_score": "45% predicted delay rank + 35% predicted repeat rank + 20% lagged dissatisfaction rank",
+  "relevance_definition": "Top-k cells by observed 2024 burden: 55% delay rank + 45% repeat rank",
+  "metrics_by_k": {
+    "10": {
+      "precision_at_k": 0.1,
+      "lift_over_random": 9.940000000000001,
+      "ndcg_at_k": 0.8592164595622647
+    },
+    "20": {
+      "precision_at_k": 0.15,
+      "lift_over_random": 7.455,
+      "ndcg_at_k": 0.8761708933689645
+    },
+    "99": {
+      "precision_at_k": 0.48484848484848486,
+      "lift_over_random": 4.868074686256505,
+      "ndcg_at_k": 0.8977903094521351
+    },
+    "199": {
+      "precision_at_k": 0.542713567839196,
+      "lift_over_random": 2.7108406353374916,
+      "ndcg_at_k": 0.9068734404033524
+    }
+  }
+}

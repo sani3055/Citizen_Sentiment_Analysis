@@ -1,0 +1,29 @@
+{
+  "model": "VADER Lexicon Baseline",
+  "evaluation_grain": "Cell-level (Service \u00d7 Borough \u00d7 Year \u00d7 Month)",
+  "number_of_matched_cells": 1747,
+  "min_cell_samples_threshold": 10,
+  "overall_accuracy": 0.6846,
+  "macro_f1": 0.275,
+  "per_class": {
+    "Negative": {
+      "precision": 0.7415,
+      "recall": 0.9017,
+      "f1_score": 0.8138,
+      "support": 1323
+    },
+    "Neutral": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "support": 0
+    },
+    "Positive": {
+      "precision": 0.0275,
+      "recall": 0.0071,
+      "f1_score": 0.0113,
+      "support": 424
+    }
+  },
+  "methodological_limitation": "VADER operates on agency closure narratives (NYC 311 resolution_description). Evaluated against citizen RSAT overall_satisfaction survey ground truth. Serves as an operational feature extractor and baseline benchmark."
+}

@@ -1,0 +1,55 @@
+{
+  "join_keys": [
+    "complaint_type_upper",
+    "borough",
+    "year",
+    "month"
+  ],
+  "initial_outcome_cells": 2100,
+  "cells_matched_with_rsat": 2054,
+  "robust_cells_before_temporal_split": 2006,
+  "cells_excluded_outside_temporal_horizons": 0,
+  "total_integrated_cells": 2006,
+  "min_cell_samples_threshold": 10,
+  "temporal_partitions": {
+    "train_year": 2023,
+    "train_cells": 667,
+    "val_year": 2023,
+    "val_cells": 336,
+    "test_year": 2024,
+    "test_cells": 1003
+  },
+  "target_variables": [
+    "mean_resolution_delay_hours",
+    "repeat_request_rate_14d"
+  ],
+  "feature_columns": [
+    "total_request_volume",
+    "mean_resolution_delay_hours",
+    "median_resolution_delay_hours",
+    "std_resolution_delay_hours",
+    "raw_mean_delay_hours",
+    "raw_delay_hours_median",
+    "repeat_request_rate_7d",
+    "repeat_request_rate_14d",
+    "repeat_request_rate_30d",
+    "rsat_response_count",
+    "citizen_dissatisfaction_rate",
+    "citizen_satisfaction_rate",
+    "mean_vader_score",
+    "std_vader_score",
+    "vader_pos_rate",
+    "vader_neg_rate",
+    "vader_neu_rate",
+    "dominant_topic_mode",
+    "topic_entropy",
+    "dominant_bertopic_mode",
+    "bertopic_outlier_rate",
+    "is_aspect_information_intake",
+    "is_aspect_issue_correction",
+    "is_aspect_other",
+    "is_aspect_response_time",
+    "is_aspect_status_updates",
+    "is_aspect_work_quality"
+  ]
+}

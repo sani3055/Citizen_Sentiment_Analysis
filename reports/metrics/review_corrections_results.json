@@ -1,0 +1,236 @@
+{
+  "evaluation": "Held-out 2024 one-month-ahead baselines and LightGBM feature-family ablations",
+  "primary_algorithm": "LightGBM",
+  "test_cells": 994,
+  "naive_baselines": {
+    "mean_resolution_delay_hours": {
+      "last_value": {
+        "r2": 0.8839443319963277,
+        "mae": 29.15874105887399,
+        "rmse": 61.1641894834919
+      },
+      "seasonal_naive_12_month": {
+        "r2": 0.4625379031656568,
+        "mae": 57.55983750294923,
+        "rmse": 131.62487395011615
+      }
+    },
+    "repeat_request_rate_14d": {
+      "last_value": {
+        "r2": 0.9469063644953319,
+        "mae": 0.030253396135577485,
+        "rmse": 0.04133595769173412
+      },
+      "seasonal_naive_12_month": {
+        "r2": 0.902204024416457,
+        "mae": 0.04028837532025046,
+        "rmse": 0.056100568694635526
+      }
+    }
+  },
+  "feature_family_ablations": {
+    "mean_resolution_delay_hours": {
+      "structured_only": {
+        "r2": 0.5994833673391526,
+        "mae": 56.183902051145864,
+        "rmse": 113.62511226225847
+      },
+      "all_augmented": {
+        "r2": 0.473046032409567,
+        "mae": 60.28741376663328,
+        "rmse": 130.33179799535733
+      },
+      "families": {
+        "VADER": {
+          "features": [
+            "mean_vader_score",
+            "vader_pos_rate",
+            "vader_neg_rate",
+            "std_vader_score"
+          ],
+          "metrics": {
+            "r2": 0.36444052153977347,
+            "mae": 66.8442577758849,
+            "rmse": 143.13378216363745
+          },
+          "delta_r2_vs_structured": -0.23504284579937917,
+          "delta_mae_vs_structured": -10.660355724739034
+        },
+        "topics": {
+          "features": [
+            "dominant_topic_mode",
+            "topic_entropy",
+            "dominant_bertopic_mode",
+            "bertopic_outlier_rate"
+          ],
+          "metrics": {
+            "r2": 0.6116369308986969,
+            "mae": 52.377141619220424,
+            "rmse": 111.88787081932634
+          },
+          "delta_r2_vs_structured": 0.012153563559544223,
+          "delta_mae_vs_structured": 3.80676043192544
+        },
+        "ABSA": {
+          "features": [
+            "is_aspect_information_intake",
+            "is_aspect_issue_correction",
+            "is_aspect_other",
+            "is_aspect_response_time",
+            "is_aspect_status_updates",
+            "is_aspect_work_quality"
+          ],
+          "metrics": {
+            "r2": 0.6419849648409535,
+            "mae": 52.189270603375334,
+            "rmse": 107.4273047995948
+          },
+          "delta_r2_vs_structured": 0.042501597501800825,
+          "delta_mae_vs_structured": 3.99463144777053
+        },
+        "RSAT satisfaction": {
+          "features": [
+            "citizen_dissatisfaction_rate",
+            "citizen_satisfaction_rate"
+          ],
+          "metrics": {
+            "r2": 0.6100701457005109,
+            "mae": 55.85161812648615,
+            "rmse": 112.11334000098888
+          },
+          "delta_r2_vs_structured": 0.01058677836135824,
+          "delta_mae_vs_structured": 0.3322839246597127
+        }
+      }
+    },
+    "repeat_request_rate_14d": {
+      "structured_only": {
+        "r2": 0.9224444913322765,
+        "mae": 0.0370115602750539,
+        "rmse": 0.04995892644287294
+      },
+      "all_augmented": {
+        "r2": 0.9241073763314188,
+        "mae": 0.03541945074787098,
+        "rmse": 0.04942043406325766
+      },
+      "families": {
+        "VADER": {
+          "features": [
+            "mean_vader_score",
+            "vader_pos_rate",
+            "vader_neg_rate",
+            "std_vader_score"
+          ],
+          "metrics": {
+            "r2": 0.8955382457315266,
+            "mae": 0.04204884048748543,
+            "rmse": 0.057980963696428606
+          },
+          "delta_r2_vs_structured": -0.026906245600749834,
+          "delta_mae_vs_structured": -0.005037280212431529
+        },
+        "topics": {
+          "features": [
+            "dominant_topic_mode",
+            "topic_entropy",
+            "dominant_bertopic_mode",
+            "bertopic_outlier_rate"
+          ],
+          "metrics": {
+            "r2": 0.9272661578742222,
+            "mae": 0.034324509959905124,
+            "rmse": 0.048381021849302354
+          },
+          "delta_r2_vs_structured": 0.004821666541945713,
+          "delta_mae_vs_structured": 0.0026870503151487785
+        },
+        "ABSA": {
+          "features": [
+            "is_aspect_information_intake",
+            "is_aspect_issue_correction",
+            "is_aspect_other",
+            "is_aspect_response_time",
+            "is_aspect_status_updates",
+            "is_aspect_work_quality"
+          ],
+          "metrics": {
+            "r2": 0.8726346123963599,
+            "mae": 0.04203828708786502,
+            "rmse": 0.06402247848028143
+          },
+          "delta_r2_vs_structured": -0.049809878935916596,
+          "delta_mae_vs_structured": -0.005026726812811119
+        },
+        "RSAT satisfaction": {
+          "features": [
+            "citizen_dissatisfaction_rate",
+            "citizen_satisfaction_rate"
+          ],
+          "metrics": {
+            "r2": 0.9223507422978212,
+            "mae": 0.03741001238842578,
+            "rmse": 0.04998911247780712
+          },
+          "delta_r2_vs_structured": -9.374903445524829e-05,
+          "delta_mae_vs_structured": -0.0003984521133718749
+        }
+      }
+    }
+  },
+  "feature_groups": {
+    "structured": [
+      "log_request_volume",
+      "month_sin",
+      "month_cos",
+      "borough_BRONX",
+      "borough_BROOKLYN",
+      "borough_MANHATTAN",
+      "borough_QUEENS",
+      "borough_STATEN ISLAND",
+      "service_ABANDONED VEHICLE",
+      "service_BLOCKED DRIVEWAY",
+      "service_DAMAGED TREE",
+      "service_DIRTY CONDITION",
+      "service_ENCAMPMENT",
+      "service_HEAT/HOT WATER",
+      "service_ILLEGAL DUMPING",
+      "service_ILLEGAL PARKING",
+      "service_MISSED COLLECTION",
+      "service_NOISE",
+      "service_NOISE - COMMERCIAL",
+      "service_NOISE - RESIDENTIAL",
+      "service_NOISE - STREET/SIDEWALK",
+      "service_PAINT/PLASTER",
+      "service_PLUMBING",
+      "service_SEWER MAINTENANCE",
+      "service_STREET CONDITION",
+      "service_UNSANITARY CONDITION",
+      "service_WATER MAINTENANCE"
+    ],
+    "VADER": [
+      "mean_vader_score",
+      "vader_pos_rate",
+      "vader_neg_rate",
+      "std_vader_score"
+    ],
+    "topics": [
+      "dominant_topic_mode",
+      "topic_entropy",
+      "dominant_bertopic_mode",
+      "bertopic_outlier_rate"
+    ],
+    "ABSA": [
+      "is_aspect_information_intake",
+      "is_aspect_issue_correction",
+      "is_aspect_other",
+      "is_aspect_response_time",
+      "is_aspect_status_updates",
+      "is_aspect_work_quality"
+    ],
+    "RSAT satisfaction": [
+      "citizen_dissatisfaction_rate",
+      "citizen_satisfaction_rate"
+    ]
+  }
+}

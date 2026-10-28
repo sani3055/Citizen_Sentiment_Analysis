@@ -1,0 +1,185 @@
+{
+  "experiment": "one_month_ahead_forecasting",
+  "lag_months": 1,
+  "target_period_split": "train Feb-Aug 2023, validation Sep-Dec 2023, test Jan-Dec 2024",
+  "source_cells": 2006,
+  "lagged_cells": 1885,
+  "split_counts": {
+    "test": 994,
+    "train": 578,
+    "val": 313
+  },
+  "target_period_definition": "features at month t predict outcomes at month t+1",
+  "results_by_target": {
+    "mean_resolution_delay_hours": {
+      "algorithms": {
+        "Ridge": {
+          "baseline": {
+            "test_metrics": {
+              "r2": 0.5839809443763366,
+              "mae": 63.73097900558714,
+              "rmse": 115.80322631074162
+            }
+          },
+          "augmented": {
+            "test_metrics": {
+              "r2": 0.5743313704057817,
+              "mae": 66.08975606104048,
+              "rmse": 117.13855702399279
+            }
+          },
+          "validation": {
+            "baseline_r2": 0.6848384087083946,
+            "augmented_r2": 0.6767827913612332
+          },
+          "delta_r2": -0.0096,
+          "delta_mae": -2.3588,
+          "paired_ttest_p_value": 0.007819660146023819,
+          "statistically_significant": true
+        },
+        "RandomForest": {
+          "baseline": {
+            "test_metrics": {
+              "r2": 0.5552809656876547,
+              "mae": 57.01388486414478,
+              "rmse": 119.73108172688748
+            }
+          },
+          "augmented": {
+            "test_metrics": {
+              "r2": 0.45905573162620483,
+              "mae": 62.14124303984654,
+              "rmse": 132.0505787586183
+            }
+          },
+          "validation": {
+            "baseline_r2": 0.7169614822048492,
+            "augmented_r2": 0.46826102235094735
+          },
+          "delta_r2": -0.0962,
+          "delta_mae": -5.1274,
+          "paired_ttest_p_value": 0.10150839488433887,
+          "statistically_significant": false
+        },
+        "LightGBM": {
+          "baseline": {
+            "test_metrics": {
+              "r2": 0.5994833673391526,
+              "mae": 56.183902051145864,
+              "rmse": 113.62511226225847
+            }
+          },
+          "augmented": {
+            "test_metrics": {
+              "r2": 0.473046032409567,
+              "mae": 60.28741376663328,
+              "rmse": 130.33179799535733
+            }
+          },
+          "validation": {
+            "baseline_r2": 0.6945001879392675,
+            "augmented_r2": 0.5220555970777465
+          },
+          "delta_r2": -0.1264,
+          "delta_mae": -4.1035,
+          "paired_ttest_p_value": 0.13634624626584296,
+          "statistically_significant": false
+        }
+      },
+      "selected_algorithm": "Ridge",
+      "validation_selected_r2": 0.6767827913612332
+    },
+    "repeat_request_rate_14d": {
+      "algorithms": {
+        "Ridge": {
+          "baseline": {
+            "test_metrics": {
+              "r2": 0.9128389719964447,
+              "mae": 0.03952241356206979,
+              "rmse": 0.05296243499055499
+            }
+          },
+          "augmented": {
+            "test_metrics": {
+              "r2": 0.8970227377931999,
+              "mae": 0.04140979630001661,
+              "rmse": 0.057567509683374075
+            }
+          },
+          "validation": {
+            "baseline_r2": 0.9038287024047681,
+            "augmented_r2": 0.883222254836828
+          },
+          "delta_r2": -0.0158,
+          "delta_mae": -0.0019,
+          "paired_ttest_p_value": 0.004727350118391099,
+          "statistically_significant": true
+        },
+        "RandomForest": {
+          "baseline": {
+            "test_metrics": {
+              "r2": 0.9096766230009086,
+              "mae": 0.04091455682124591,
+              "rmse": 0.053914658079658596
+            }
+          },
+          "augmented": {
+            "test_metrics": {
+              "r2": 0.9165016458379647,
+              "mae": 0.03537362274259279,
+              "rmse": 0.05183770067410098
+            }
+          },
+          "validation": {
+            "baseline_r2": 0.9047188677961078,
+            "augmented_r2": 0.7703337894687285
+          },
+          "delta_r2": 0.0068,
+          "delta_mae": 0.0055,
+          "paired_ttest_p_value": 1.198072875096344e-07,
+          "statistically_significant": true
+        },
+        "LightGBM": {
+          "baseline": {
+            "test_metrics": {
+              "r2": 0.9224444913322765,
+              "mae": 0.0370115602750539,
+              "rmse": 0.04995892644287294
+            }
+          },
+          "augmented": {
+            "test_metrics": {
+              "r2": 0.9241073763314188,
+              "mae": 0.03541945074787098,
+              "rmse": 0.04942043406325766
+            }
+          },
+          "validation": {
+            "baseline_r2": 0.9037430177838119,
+            "augmented_r2": 0.8165289345555812
+          },
+          "delta_r2": 0.0017,
+          "delta_mae": 0.0016,
+          "paired_ttest_p_value": 0.05280964392526574,
+          "statistically_significant": false
+        }
+      },
+      "selected_algorithm": "Ridge",
+      "validation_selected_r2": 0.883222254836828
+    }
+  },
+  "shap_feature_importance_ranking": {
+    "std_vader_score": 77.04866992263683,
+    "mean_vader_score": 32.180085371447454,
+    "is_aspect_response_time": 23.582756680240543,
+    "service_DAMAGED TREE": 18.66871872792632,
+    "vader_neg_rate": 17.394846235811904,
+    "dominant_bertopic_mode": 12.349509202560784,
+    "is_aspect_issue_correction": 9.880959677151418,
+    "is_aspect_work_quality": 9.375390808430772,
+    "month_cos": 7.246492942006833,
+    "vader_pos_rate": 7.055001971521791,
+    "is_aspect_information_intake": 6.911675511636012,
+    "bertopic_outlier_rate": 6.6468121109337615
+  }
+}

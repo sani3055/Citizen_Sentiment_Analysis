@@ -1,0 +1,175 @@
+{
+  "experiment_title": "Comparative Assessment of Structured vs. NLP-Augmented Predictive Models",
+  "validation_strategy": "Chronological partition (train: 2023 Jan-Aug, validation: 2023, test: 2024)",
+  "test_horizon_year": 2024,
+  "test_sample_cells": 1003,
+  "results_by_target": {
+    "mean_resolution_delay_hours": {
+      "algorithms": {
+        "Ridge": {
+          "baseline": {
+            "test_metrics": {
+              "r2": 0.49612480689475,
+              "mae": 68.50646938863494,
+              "rmse": 127.10606037482945
+            }
+          },
+          "augmented": {
+            "test_metrics": {
+              "r2": 0.4816382138526726,
+              "mae": 70.22428322537404,
+              "rmse": 128.92028534904773
+            }
+          },
+          "validation": {
+            "baseline_r2": 0.7001896877021698,
+            "augmented_r2": 0.7025543744520191
+          },
+          "delta_r2": -0.0145,
+          "delta_mae": -1.7178,
+          "paired_ttest_p_value": 0.08379318991142103,
+          "statistically_significant": false
+        },
+        "RandomForest": {
+          "baseline": {
+            "test_metrics": {
+              "r2": 0.531101451827944,
+              "mae": 62.15191795424801,
+              "rmse": 122.61517245386457
+            }
+          },
+          "augmented": {
+            "test_metrics": {
+              "r2": 0.2504089240480457,
+              "mae": 74.64713173613109,
+              "rmse": 155.03043764568775
+            }
+          },
+          "validation": {
+            "baseline_r2": 0.8340490546670409,
+            "augmented_r2": 0.4382409120535544
+          },
+          "delta_r2": -0.2807,
+          "delta_mae": -12.4952,
+          "paired_ttest_p_value": 0.0001342034127142044,
+          "statistically_significant": true
+        },
+        "LightGBM": {
+          "baseline": {
+            "test_metrics": {
+              "r2": 0.5053369507609932,
+              "mae": 66.58778483722058,
+              "rmse": 125.93878653464213
+            }
+          },
+          "augmented": {
+            "test_metrics": {
+              "r2": 0.30804250182301307,
+              "mae": 69.88315540740037,
+              "rmse": 148.951362147811
+            }
+          },
+          "validation": {
+            "baseline_r2": 0.7204759401256167,
+            "augmented_r2": 0.5146111457271524
+          },
+          "delta_r2": -0.1973,
+          "delta_mae": -3.2954,
+          "paired_ttest_p_value": 0.22547783447105,
+          "statistically_significant": false
+        }
+      },
+      "selected_algorithm": "Ridge",
+      "validation_selected_r2": 0.7025543744520191
+    },
+    "repeat_request_rate_14d": {
+      "algorithms": {
+        "Ridge": {
+          "baseline": {
+            "test_metrics": {
+              "r2": 0.9084903166699745,
+              "mae": 0.04025578639046529,
+              "rmse": 0.0544311921958862
+            }
+          },
+          "augmented": {
+            "test_metrics": {
+              "r2": 0.9008280308742475,
+              "mae": 0.04063078360564826,
+              "rmse": 0.05666420352955441
+            }
+          },
+          "validation": {
+            "baseline_r2": 0.899428090263365,
+            "augmented_r2": 0.8937757324476089
+          },
+          "delta_r2": -0.0077,
+          "delta_mae": -0.0004,
+          "paired_ttest_p_value": 0.5822764243570648,
+          "statistically_significant": false
+        },
+        "RandomForest": {
+          "baseline": {
+            "test_metrics": {
+              "r2": 0.9080035609835443,
+              "mae": 0.041671284510932195,
+              "rmse": 0.054575764618710214
+            }
+          },
+          "augmented": {
+            "test_metrics": {
+              "r2": 0.8917851568265933,
+              "mae": 0.04009981901501607,
+              "rmse": 0.05919128082352085
+            }
+          },
+          "validation": {
+            "baseline_r2": 0.8818812889640252,
+            "augmented_r2": 0.6614267066894115
+          },
+          "delta_r2": -0.0162,
+          "delta_mae": 0.0016,
+          "paired_ttest_p_value": 0.19035885047637985,
+          "statistically_significant": false
+        },
+        "LightGBM": {
+          "baseline": {
+            "test_metrics": {
+              "r2": 0.9031030610587893,
+              "mae": 0.04169352915982669,
+              "rmse": 0.056010487055006164
+            }
+          },
+          "augmented": {
+            "test_metrics": {
+              "r2": 0.8933997417603017,
+              "mae": 0.04007671096512241,
+              "rmse": 0.05874804905509706
+            }
+          },
+          "validation": {
+            "baseline_r2": 0.8858010680368205,
+            "augmented_r2": 0.6535956809397142
+          },
+          "delta_r2": -0.0097,
+          "delta_mae": 0.0016,
+          "paired_ttest_p_value": 0.17054067075987317,
+          "statistically_significant": false
+        }
+      },
+      "selected_algorithm": "Ridge",
+      "validation_selected_r2": 0.8937757324476089
+    }
+  },
+  "shap_feature_importance_ranking": {
+    "dominant_bertopic_mode": 0.11248113708587257,
+    "log_request_volume": 0.019845558036331434,
+    "topic_entropy": 0.015252458003386139,
+    "is_aspect_response_time": 0.010996025885205341,
+    "vader_neg_rate": 0.0082982450007933,
+    "borough_STATEN ISLAND": 0.00726028984745109,
+    "borough_QUEENS": 0.006501578195585859,
+    "service_NOISE - STREET/SIDEWALK": 0.005494361098857389
+  },
+  "scientific_conclusion": "After controlling for service identity and selecting models on validation data, the corrected 2024 out-of-time experiment reports observed incremental predictive association. Significance is reported per target and algorithm rather than generalized across the experiment; no causal claim is made."
+}

@@ -1,0 +1,15 @@
+{
+  "title": "Citizen Sentiment Analysis of Municipal Services Using Transformer-Based NLP",
+  "description": "Reproducible Team 16 research package containing code, aggregate cell data, metric outputs, figures, tests, and documentation for one-month-ahead municipal outcome forecasting using NYC 311 and Resolution Satisfaction Survey data.",
+  "upload_type": "software",
+  "creators": [
+    {"name": "Panbiharwala, Taher", "affiliation": "Vellore Institute of Technology, Vellore"},
+    {"name": "Bhandari, Sanidhya", "affiliation": "Vellore Institute of Technology, Vellore"},
+    {"name": "Deb, Chinmoy", "affiliation": "Vellore Institute of Technology, Vellore"}
+  ],
+  "keywords": ["smart cities", "municipal services", "NLP", "sentiment analysis", "NYC 311", "forecasting"],
+  "access_right": "open",
+  "license": "other-open",
+  "version": "1.0.0"
+}
+

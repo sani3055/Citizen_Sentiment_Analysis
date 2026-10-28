@@ -1,0 +1,45 @@
+{
+  "definition": "A repeat is a later request in the same borough, at the same cleaned address, and for the same complaint type within more than 0 and no more than 14 days.",
+  "all_requests": {
+    "n": 4204783,
+    "repeat_count_14d": 1945561,
+    "repeat_rate_14d": 0.46270188021593506
+  },
+  "heat_hot_water": {
+    "n": 492617,
+    "repeat_count_14d": 347987,
+    "repeat_rate_14d": 0.7064047728762913,
+    "share_of_all_repeat_flags": 0.17886203516620655
+  },
+  "excluding_heat_hot_water": {
+    "n": 3712166,
+    "repeat_count_14d": 1597574,
+    "repeat_rate_14d": 0.4303616810239628
+  },
+  "housing_service_proxy": {
+    "included_services": [
+      "HEAT/HOT WATER",
+      "PAINT/PLASTER",
+      "PLUMBING",
+      "UNSANITARY CONDITION"
+    ],
+    "n": 989337,
+    "repeat_count_14d": 474812,
+    "repeat_rate_14d": 0.479929488131951,
+    "share_of_all_repeat_flags": 0.2440488887266963
+  },
+  "excluding_housing_service_proxy": {
+    "n": 3215446,
+    "repeat_count_14d": 1470749,
+    "repeat_rate_14d": 0.45740124387099024
+  },
+  "high_volume_address_proxy": {
+    "minimum_requests_per_address": 10,
+    "distinct_high_volume_addresses": 73278,
+    "n_requests": 2935099,
+    "repeat_count_14d": 1759048,
+    "repeat_rate_14d": 0.599314707953633,
+    "share_of_all_repeat_flags": 0.9041340775231411
+  },
+  "limitation": "The public extract has no authoritative building-type field. Housing-service and high-volume-address results are sensitivity proxies, not verified multi-unit-building classifications."
+}
