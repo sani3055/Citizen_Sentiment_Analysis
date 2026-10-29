@@ -1,6 +1,6 @@
 # Reproducibility Guide
 
-This repository contains the complete Team 16 pipeline. The primary research experiment uses information observed in month *t* to forecast resolution delay and 14-day repeat-request rate for the same service and borough in month *t+1*. Calendar year 2024 is the untouched operational test horizon.
+This repository contains the complete Team 16 pipeline. The primary research experiment uses information observed in month *t* to forecast resolution delay and 14-day repeat-request rate for the same service and borough in month *t+1*. Calendar year 2024 is the operational test horizon. The final-review subset-selection and fixed-cutoff ranking extensions reuse that previously examined horizon and are explicitly exploratory, not independent confirmatory tests.
 
 ## Data provenance
 
@@ -13,7 +13,7 @@ Raw Socrata records are not redistributed in the small reproducibility archive. 
 
 ## Environment
 
-Create a Python environment and install the pinned dependencies:
+Create a Python environment and install the research dependencies (the constraints in `requirements.txt` are minimum versions, while `requirements-lock.txt` records the original local versions):
 
 ```powershell
 python -m venv venv
@@ -36,6 +36,8 @@ venv\Scripts\python.exe src\outcomes\aggregate_integration.py --config configs\c
 venv\Scripts\python.exe src\models\train_predictive.py --config configs\config.yaml
 venv\Scripts\python.exe src\models\train_lagged_predictive.py --config configs\config.yaml
 venv\Scripts\python.exe src\models\robustness_analysis.py
+venv\Scripts\python.exe scripts\compute_review_corrections.py
+venv\Scripts\python.exe src\models\selected_feature_analysis.py
 venv\Scripts\python.exe src\models\evaluate_priority_ranking.py
 venv\Scripts\python.exe -m pytest -q
 ```
@@ -51,9 +53,25 @@ Topic models are fitted only on the configured 2023 training period and then fro
 - `reports/metrics/absa_evaluation_summary.json`
 - `reports/metrics/repeat_rate_sensitivity.json`
 - `reports/metrics/priority_ranking_metrics.json`
+- `reports/metrics/selected_feature_results.json`
 - `reports/figures/`
+
+## Final-review analyses from the small archive
+
+With the research dependencies installed, the bundled aggregate cells are sufficient for these commands; no raw re-download or model weights are needed:
+
+```powershell
+venv\Scripts\python.exe scripts\compute_review_corrections.py
+venv\Scripts\python.exe src\models\selected_feature_analysis.py
+venv\Scripts\python.exe src\models\evaluate_priority_ranking.py
+venv\Scripts\python.exe -m pytest tests -q
+```
+
+The ranking command uses `lagged_cell_dataset.parquet`, which is bundled in the archive. `selected_feature_analysis.py` builds the lagged table in memory from integrated cells, selects among eight no-VADER family subsets using 2023 validation R² only, and reports fixed five-seed results and paired-cell bootstrap intervals on 2024. The fixed ranking cutoff uses training outcomes only; its prevalence is held constant across queue sizes. Original top-k overlap/lift is retained with raw hits and an explicit rescaling warning.
+
+`scripts/apply_final_paper_corrections.py` rebuilds the corrected manuscript from the included preceding revised manuscript and saved metric artifacts. Use the bundled `scripts/build_reproducibility_archive.py --output outputs/team16_final_corrections_reproducibility.zip` to rebuild the compact archive. Dashboard-only users should follow `DASHBOARD_SETUP.md` instead of installing the training dependencies.
 
 ## Archiving and DOI
 
-The generated archive in `outputs/` is ready for upload to Zenodo. Uploading requires an author-owned account and cannot be completed automatically by this repository. After publication, add the assigned DOI to `CITATION.cff`, `.zenodo.json`, the manuscript data-availability statement, and the README.
+Public code: https://github.com/sani3055/Citizen_Sentiment_Analysis. The updated archive is `outputs/team16_final_corrections_reproducibility.zip`. Zenodo publication is deferred at the author's request; no DOI has been assigned or claimed. Before publishing, the authors should confirm the deposit metadata and chosen reuse licence. After publication, add the actual DOI to `CITATION.cff`, `.zenodo.json`, the manuscript data-availability statement, and the README.
 

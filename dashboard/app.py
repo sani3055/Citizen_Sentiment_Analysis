@@ -182,11 +182,11 @@ def render_trends(df):
 def about_view():
     st.subheader("How this dashboard works")
     st.markdown("""
-    - **Unit of analysis:** service-by-borough-by-month cells built from NYC 311 operational records and RSAT survey aggregates.
+    - **Unit of analysis:** service × borough × month cells built from NYC 311 operational records and RSAT survey aggregates.
     - **Operations signals:** request volume, resolution delay, repeat-request rates, and survey dissatisfaction.
     - **NLP signals:** sentiment, topics, and grievance aspects extracted from public resolution narratives; the RSAT source does not provide unrestricted citizen comments.
     - **Model evaluation:** chronological evaluation on 994 untouched 2024 cells, with LightGBM as the primary model and last-value persistence as the strongest benchmark.
-    - **Research finding:** adding language and satisfaction features did not beat the simple previous-month baseline in this study.
+    - **Research finding:** the all-family bundle worsened delay prediction. An exploratory validation-selected ABSA + RSAT model improved over structured LightGBM, but neither beat the previous-month baseline on NYC's 2024 test period.
     - **Interpretation:** the model results show predictive association at aggregate level. They do not establish causality and should not be used to make decisions about individual residents.
     """)
     st.info("Updated project finding: the previous-month persistence baseline is stronger than the augmented NLP model on the held-out horizon. The dashboard is a prioritisation aid, not an automatic decision system.")
@@ -282,11 +282,25 @@ def municipal_view(df, predictions, robustness, ranking_metrics, review_metrics,
         e2.metric("Repeat feature change (Delta R2)", f"{repeat_result.get('delta_r2', np.nan):+.3f}" if repeat_result else "-")
         e3.metric("Robustness runs", f"{len(robustness.get('seeds', [])) or '-'} seeds")
         e4.metric(
-            f"Priority Precision@{preferred_k}" if preferred_k else "Priority Precision@k",
+            f"Priority Precision@{preferred_k} (strict overlap)" if preferred_k else "Priority Precision@k",
             f"{precision:.1%}" if precision is not None else "-",
             help="Share of the dashboard's top-ranked held-out cells that were also in the observed top-k burden set.",
         )
         st.caption("Primary evidence uses month-t information to forecast month t+1 on the held-out 2024 horizon. Results are aggregate service-borough-month predictions, not causal effects or individual-ticket forecasts.")
+        if preferred_k:
+            hits = ranking[str(preferred_k)].get("hits", round(precision * preferred_k))
+            st.warning(f"Strict top-{preferred_k} overlap: {hits}/{preferred_k} predicted cells were also in the observed top-{preferred_k}. Here relevance prevalence is k/N, so the original lift is only Precision@k × N/k, not independent evidence of queue quality.")
+        fixed = ranking_metrics.get("fixed_threshold", {})
+        if fixed:
+            st.markdown("**Separate fixed-cutoff burden evaluation**")
+            st.caption(f"The burden transform and cutoff were fitted on February–August 2023 training outcomes only and are frozen across k. {fixed['relevant_cells']}/{fixed['test_cells']} NYC-2024 cells qualify ({fixed['relevance_prevalence']:.1%}). This exploratory cutoff is not a validated municipal standard and is not the same relevance definition as strict top-k overlap.")
+            fixed_rows = [
+                {"Queue size": int(k), "Relevant hits": f"{m['hits']}/{k}",
+                 "Precision": f"{m['precision_at_k']:.1%}", "Recall": f"{m['recall_at_k']:.1%}",
+                 "Lift vs fixed prevalence": round(m['lift_over_random'], 2)}
+                for k, m in fixed["metrics_by_k"].items()
+            ]
+            st.dataframe(pd.DataFrame(fixed_rows), use_container_width=True, hide_index=True)
         st.markdown("**Primary LightGBM comparison**")
         evidence_rows = []
         for target_label, target_key in [("Delay (hours)", "mean_resolution_delay_hours"), ("Repeat rate (14d)", "repeat_request_rate_14d")]:
@@ -306,6 +320,20 @@ def municipal_view(df, predictions, robustness, ranking_metrics, review_metrics,
             evidence_df[col] = evidence_df[col].map(lambda x: f"{x:+.4f}" if col == "Delta R2" else f"{x:.4f}")
         st.dataframe(evidence_df, use_container_width=True, hide_index=True)
 
+        selected_metrics = load_json("selected_feature_results.json")
+        if selected_metrics:
+            st.markdown("**Exploratory validation-selected features**")
+            selected_rows = []
+            for target_label, target_key in [("Delay (hours)", "mean_resolution_delay_hours"), ("Repeat rate (14d)", "repeat_request_rate_14d")]:
+                result = selected_metrics["results_by_target"][target_key]
+                primary = result["primary_seed_42"]
+                selected_rows.append({"Target": target_label,
+                    "Added families": " + ".join(result["selected_families"]) or "None (structured only)",
+                    "Selected R2": round(primary["selected"]["r2"], 4),
+                    "Delta vs structured": round(primary["delta_r2"], 4)})
+            st.dataframe(pd.DataFrame(selected_rows), use_container_width=True, hide_index=True)
+            st.caption("Families were selected using 2023 validation R², not 2024 scores. This is a post-review exploratory refinement on a previously examined test year. The selected delay gain has a bootstrap interval spanning zero, and persistence remains stronger for both outcomes.")
+
         ablation_rows = []
         for target_label, target_key in [("Delay", "mean_resolution_delay_hours"), ("Repeat rate", "repeat_request_rate_14d")]:
             families = review_metrics.get("feature_family_ablations", {}).get(target_key, {}).get("families", {})
@@ -317,7 +345,7 @@ def municipal_view(df, predictions, robustness, ranking_metrics, review_metrics,
             ablation_fig.add_hline(y=0, line_color="#a9bbca", line_width=1)
             st.plotly_chart(style_chart(ablation_fig, 330), use_container_width=True)
             st.caption("Positive values indicate improvement over the structured model. The strongest benchmark remains the previous-month persistence baseline.")
-        shap_path = ROOT / "reports" / "figures" / "shap_feature_importance.png"
+        shap_path = ROOT / "reports" / "figures" / "lagged_shap_feature_importance.png"
         if shap_path.exists():
             with st.expander("View global feature importance"):
                 st.image(str(shap_path), caption="Which feature groups influenced the model most.", use_container_width=True)

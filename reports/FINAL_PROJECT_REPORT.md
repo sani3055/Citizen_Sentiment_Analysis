@@ -6,13 +6,13 @@
 **Team:** 16  
 **Members:** Taher Panbiharwala (23BCT0028), Sanidhya Bhandari (23BCT0209), Chinmoy Deb (23BCT0050)  
 **Faculty guide:** Dr. Kalaavathi B  
-**Updated:** 20 October 2026
+**Updated:** 29 October 2026
 
-## 1. Research question and final design
+## 1. Research question and corrected design
 
 This project asks whether sentiment, topic, grievance-aspect, and satisfaction signals add out-of-time predictive information for municipal resolution delay and repeat requests after service identity, borough, season, and request volume are controlled. The primary design uses features observed in month *t* to predict outcomes for the same service and borough in month *t+1*. Same-month models are retained only as a secondary monitoring analysis. The results are predictive associations and do not establish causality.
 
-For a consistent headline analysis, LightGBM is the primary algorithm for both outcomes and is used in the headline comparison, robustness analysis, SHAP interpretation, and dashboard evidence. Ridge and Random Forest remain comparison models.
+All operational performance claims are limited to the selected NYC services and boroughs on the January–December 2024 target horizon. The final-review feature-selection and fixed-cutoff ranking extensions are exploratory analyses of an already examined test year, not independent confirmatory replications.
 
 ## 2. Data provenance and coverage
 
@@ -33,7 +33,6 @@ Public RSAT rows suppress unrestricted citizen commentary. NLP features therefor
 - Normalised boilerplate descriptions are assigned to their first observed year. Only labels observed in that first year are retained, preventing text or future labels from crossing splits.
 - Rule, TF-IDF, and DistilBERT ABSA models use the same duplicate-controlled 2025 test set.
 - Five-seed robustness and 2,000 bootstrap resamples use the exact primary LightGBM recipe.
-- The primary LightGBM analysis is compared with last-value and 12-month seasonal-naive baselines; feature-family ablations are reported for VADER, topics, ABSA, and RSAT satisfaction.
 - Code, configurations, tests, processed cell tables, metrics, and figures are packaged for Zenodo deposition. A DOI must be assigned through an author-owned Zenodo account.
 
 ## 4. NLP evaluation
@@ -42,13 +41,15 @@ Public RSAT rows suppress unrestricted citizen commentary. NLP features therefor
 
 VADER was evaluated on 1,747 robust cells. Accuracy was 0.6846, macro-F1 was 0.2750, and negative-class F1 was 0.8138. The difference between matched VADER cells and modelled cells is expected: VADER evaluation requires an RSAT cell with at least ten survey responses, while outcome modelling additionally requires all feature tables, an operational outcome cell, lag alignment, and an assigned temporal split.
 
+The declared three-label macro-F1 averages Negative (0.8138), Neutral (0.0000), and Positive (0.0113) with equal weight and `zero_division=0`. Neutral has zero ground-truth support but remains in the explicit label list. This is not a two-class macro-F1.
+
 ### 4.2 Topic models
 
 LDA used 10 topics and achieved C_v coherence 0.4675. BERTopic identified 14 non-outlier clusters. Both were fitted on 2023-01 through 2023-07; test-period text used for fitting is `False`.
 
 ### 4.3 Duplicate-controlled ABSA
 
-The source contains 250,703 labelled RSAT rows but only 593 normalised descriptions and 1,647 retained text-label pairs. Cross-split normalised-text overlap is zero. With six classes, uniform random macro-F1 is approximately 0.167; the observed results are at or below this level. ABSA features are therefore retained as a documented failure of agency boilerplate to provide a reliable proxy for citizen voice.
+The source contains 250,703 labelled RSAT rows but only 593 normalised descriptions and 1,647 retained text-label pairs. Cross-split normalised-text overlap is zero.
 
 | Model | Test records | Accuracy | Macro-F1 |
 |---|---:|---:|---:|
@@ -58,22 +59,17 @@ The source contains 250,703 labelled RSAT rows but only 593 normalised descripti
 
 These results measure classification of privacy-limited agency narratives against standardised survey reasons. They are not a human-annotated evaluation of citizen free text.
 
+DistilBERT and TF-IDF both underperform the rule baseline. Uniform-guess accuracy of 1/6 is not an established macro-F1 chance benchmark on this imbalanced test set; no at/below-chance claim is made from that number.
+
 ## 5. Operational outcomes and repeat sensitivity
 
 Across 4,204,783 valid requests, median raw delay was 2.85 hours, the 95th percentile was 369.75 hours, and the 99th-percentile winsorisation cap was 2044.34 hours. Repeat rates were 40.02% at 7 days, 46.27% at 14 days, and 52.89% at 30 days.
 
 Heat/Hot Water accounts for 17.89% of all 14-day repeat flags; excluding it gives a repeat rate of 43.04%. The broader housing-service proxy accounts for 24.40% of repeat flags; excluding those services gives 45.74%. High-volume borough-address groups account for 90.41% of repeat flags. The public extract has no authoritative building-type field, so these are sensitivity proxies rather than verified multi-unit-building classifications.
 
-### RSAT count reconciliation
-
-| Count | Meaning |
-|---|---|
-| Portal headline | All records shown by the public portal, including records outside the study period and rows that fail validation |
-| 406,581 | Audited analytic responses remaining after study-period, borough, and Likert-value checks |
-
 ## 6. Primary one-month-ahead predictive results
 
-The lagged integrated table contains 1,885 cells: 578 training, 313 validation, and 994 untouched 2024 test cells.
+The lagged integrated table contains 1,885 cells: 578 training, 313 validation, and 994 held-out 2024 test cells.
 
 | Target | Algorithm | Baseline R² | Augmented R² | ΔR² | Baseline MAE | Augmented MAE | Paired-error p |
 |---|---|---:|---:|---:|---:|---:|---:|
@@ -84,18 +80,40 @@ The lagged integrated table contains 1,885 cells: 578 training, 313 validation, 
 | Repeat rate (14d) | RandomForest | 0.9097 | 0.9165 | +0.0068 | 0.0409 | 0.0354 | 1.198e-07 |
 | Repeat rate (14d) | LightGBM | 0.9224 | 0.9241 | +0.0017 | 0.0370 | 0.0354 | 0.05281 |
 
-The p-values are from two-sided paired tests of per-cell absolute prediction errors. They are not direct significance tests of ΔR². A negative ΔR² or higher augmented MAE means that the augmented model performed worse. The primary LightGBM comparison is used consistently in the headline, robustness, SHAP, and dashboard analyses. The strongest structured benchmark is the last-value baseline for both outcomes, so the language/satisfaction features do not establish improvement over persistence.
+The p-values are from two-sided paired tests of per-cell absolute prediction errors. They are not direct significance tests of ΔR². Model selection uses validation R², and the strongest structured and augmented test models are reported even when they differ from the validation-selected algorithm. Therefore, any claim about NLP improvement is algorithm-specific unless an augmented model also exceeds the strongest structured baseline.
 
-### 6.1 Naive baselines and feature-family ablations
+### 6.1 Persistence and individual feature families
 
-| Target | Last-value R² | Seasonal-naive R² | Structured LightGBM R² | All-feature LightGBM R² |
+| Target | Last-value R² | Seasonal-naive R² | Structured LightGBM R² | All-family R² |
 |---|---:|---:|---:|---:|
-| Mean delay (hours) | 0.8839 | 0.4625 | 0.5995 | 0.4730 |
-| Repeat rate (14d) | 0.9469 | 0.9022 | 0.9224 | 0.9241 |
+| Delay | 0.8839 | 0.4625 | 0.5995 | 0.4730 |
+| Repeat rate | 0.9469 | 0.9022 | 0.9224 | 0.9241 |
 
-The last-value baseline uses the previous month's observed outcome for the same service-borough cell. The seasonal-naive baseline uses the same calendar month from the previous year, with aggregate fallback when an exact cell is absent. Feature-family ablations are saved in `reports/metrics/review_corrections_results.json`: for delay, topics (+0.0122 ΔR²) and ABSA (+0.0425) were the only positive single-family additions, while VADER reduced R² by 0.2350; for repeat rate, topics added 0.0048, while VADER and ABSA reduced R².
+| Target | Added family | R² | ΔR² vs structured |
+|---|---|---:|---:|
+| Delay | VADER | 0.3644 | -0.2350 |
+| Delay | topics | 0.6116 | +0.0122 |
+| Delay | ABSA | 0.6420 | +0.0425 |
+| Delay | RSAT satisfaction | 0.6101 | +0.0106 |
+| Repeat rate | VADER | 0.8955 | -0.0269 |
+| Repeat rate | topics | 0.9273 | +0.0048 |
+| Repeat rate | ABSA | 0.8726 | -0.0498 |
+| Repeat rate | RSAT satisfaction | 0.9224 | -0.0001 |
 
-## 7. Robustness and uncertainty
+Topics, ABSA, and RSAT individually improve delay R², while VADER reduces it sharply. The all-family drop is therefore a feature-bundle failure, not a general demonstration that language cannot help. Repeat-rate R² near 0.92 is not an established modelling gain: persistence is stronger, and high-volume addresses account for 90.41% of observed repeat flags. This does not causally decompose the R² into persistence and address effects.
+
+### 6.2 Exploratory validation-selected augmentation
+
+All eight subsets of topics, ABSA, and RSAT, including no added family, are scored on September–December 2023 validation after training on February–August 2023 targets. VADER is excluded. Maximum validation R² determines the chosen subset, with fewer columns on an exact tie. The subset is refitted on train plus validation before the NYC-2024 evaluation.
+
+| Target | Added families | Validation R² | 2024 R² | ΔR² vs structured | MAE |
+|---|---|---:|---:|---:|---:|
+| Delay | ABSA + RSAT | 0.7144 | 0.6228 | +0.0233 | 53.5087 |
+| Repeat rate | None | 0.9037 | 0.9224 | +0.0000 | 0.0370 |
+
+The seed-42 delay model retains ABSA + RSAT and gains +0.0233 R², with paired absolute-error p = 0.1087. Its five-seed gain is +0.0214 ± 0.0068; a 2,000-resample paired cell-bootstrap interval on seed-mean predictions is [-0.0263, +0.0762]. The interval includes zero and does not account for service/borough clustering. The all-non-VADER reference reaches delay R² 0.6115 and repeat R² 0.9240. Validation selects structured features alone for repeat rate; zero ΔR² then follows from model identity, not equivalence evidence between distinct models. No selected model beats persistence. This post-review extension reuses a previously examined test horizon and is exploratory.
+
+## 7. Original all-family robustness and uncertainty
 
 For delay, the five-seed mean ΔR² is -0.1396 ± 0.0158; the 2,000-resample 95% interval is [-0.2282, -0.0402]. For repeat rate, the corresponding mean is -0.0008 ± 0.0017, with interval [-0.0070, +0.0060]. Borough- and service-level MAE results are stored in `robustness_results.json`.
 
@@ -103,16 +121,27 @@ For delay, the five-seed mean ΔR² is -0.1396 ± 0.0158; the 2,000-resample 95%
 
 The municipal queue combines 45% predicted delay rank, 35% predicted repeat rank, and 20% lagged dissatisfaction rank. Held-out ranking performance is:
 
-| k | Precision@k | Lift over random | NDCG@k |
-|---:|---:|---:|---:|
-| 10 | 0.100 | 9.94 | 0.859 |
-| 20 | 0.150 | 7.46 | 0.876 |
-| 99 | 0.485 | 4.87 | 0.898 |
-| 199 | 0.543 | 2.71 | 0.907 |
+| k | Raw hits | Precision@k | Lift (rescaled P@k) | NDCG@k |
+|---:|---:|---:|---:|---:|
+| 10 | 1/10 | 0.100 | 9.94 | 0.859 |
+| 20 | 3/20 | 0.150 | 7.46 | 0.876 |
+| 99 | 48/99 | 0.485 | 4.87 | 0.898 |
+| 199 | 108/199 | 0.543 | 2.71 | 0.907 |
+
+Strict top-k relevance has prevalence k/N, so lift = Precision@k × N/k. The original 9.94-fold lift is therefore a rescaling of 1/10 hits, not independent evidence of a strong queue. Top-20 overlap is only 3/20. Continuous NDCG is a graded-score statistic and does not contradict low extreme-cell overlap.
+
+For a separate fixed relevance definition, delay and repeat are mapped to percentiles of February–August 2023 training outcomes. A 55% delay / 45% repeat burden score uses the training 80th-percentile cutoff (61.9031), frozen across k and 2024. It identifies 202/994 relevant cells (20.32% prevalence).
+
+| k | Raw hits | Fixed-cutoff precision | Recall | Lift vs fixed prevalence |
+|---:|---:|---:|---:|---:|
+| 10 | 9/10 | 0.900 | 0.045 | 4.43 |
+| 20 | 18/20 | 0.900 | 0.089 | 4.43 |
+| 99 | 69/99 | 0.697 | 0.342 | 3.43 |
+| 199 | 111/199 | 0.558 | 0.550 | 2.74 |
+
+This broader screen is not directly comparable to top-k overlap and is not a validated municipal standard. At k=10 it finds 9/10 qualifying cells but only 4.46% of all 202 relevant cells. Neither definition establishes an advantage over a persistence-ranked queue or staff decisions.
 
 The dashboard also contains a resident-facing historical view. It displays aggregate statistics only and must not be used for individual-level decisions.
-
-The queue metrics are included in the manuscript because dashboard usefulness is evaluated separately from outcome prediction. Precision@10 is 0.100 with 9.94 lift and NDCG@10 of 0.859; Precision@20 is 0.150 with 7.46 lift and NDCG@20 of 0.876.
 
 ## 9. Limitations
 
@@ -123,6 +152,7 @@ The queue metrics are included in the manuscript because dashboard usefulness is
 5. Address concentration is observable, but verified building type is not available in the selected public fields.
 6. Paired cell-error tests do not remove dependence among cells sharing a service or borough.
 7. A public DOI is pending author upload to Zenodo.
+8. Final-review feature-selection and ranking-cutoff extensions are exploratory and need an independent later-year or cross-city confirmation.
 
 ## 10. Deliverables
 
@@ -134,4 +164,4 @@ The queue metrics are included in the manuscript because dashboard usefulness is
 
 ## 11. Conclusion
 
-The project is a reproducible test of whether privacy-safe language and satisfaction signals improve future aggregate municipal-outcome prediction. The held-out results support a careful negative or near-null conclusion: the augmented model does not beat the strongest last-value benchmark, although selected feature families provide limited signal within some learned models. Conclusions therefore report signed effect sizes, paired-error significance accurately, and retain the documented privacy, domain-transfer, and dependence limitations.
+The project identifies feature-specific effects and limitations in NYC-2024 rather than a universal positive or negative verdict on language features. Excluding VADER and validation-selecting ABSA + RSAT gives a modest, uncertain delay gain over structured LightGBM, while persistence remains stronger and repeat selection retains no added family. DistilBERT underperforms the rule classifier. Ranking usefulness depends strongly on the definition of relevance. Public code and reproducibility artifacts support checking these exploratory findings; a permanent DOI remains pending author publication.

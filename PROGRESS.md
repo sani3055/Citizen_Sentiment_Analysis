@@ -2,7 +2,17 @@
 
 **Project:** Citizen Sentiment Analysis of Municipal Services Using Transformer-Based NLP  
 **Last Updated:** October 2026 (v2 — revised after Claude review)  
-**Current Milestone:** Corrected-data rebuild complete | 20/20 tests passing | 2024 operational test horizon
+**Current Milestone:** Final-review corrections complete except author-deferred DOI | 24/24 tests passing | NYC-2024 scope
+
+## Final-review corrections (29 October 2026)
+
+- Implemented the highlighted path: selected-feature model, corrected ranking evaluation, public reproducibility package, and manuscript cleanup.
+- Delay: validation-selected ABSA + RSAT gives R² 0.6228 versus 0.5995 structured; five-seed ΔR² +0.0214 ± 0.0068, bootstrap [-0.0263, +0.0762]. This is exploratory and not a demonstrated gain over persistence (0.8839).
+- Repeat selection retains no added family; structured R² 0.9224 remains below persistence 0.9469.
+- Legacy ranking: raw hits 1/10 and 3/20, with lift explicitly identified as a rescaling. Separate training-derived fixed relevance: 202/994 relevant cells, hits 9/10 and 18/20, using a different and broader burden definition.
+- Updated manuscript numbering, VADER three-label macro-F1 basis, DistilBERT below-rule result in the abstract, and NYC-2024 interpretation. No new city data are claimed.
+- Full automated suite: 24 passed. Updated dashboard runtime files remain lightweight.
+- DOI publication deferred at the user's explicit request; no DOI is fabricated.
 
 ## Final corrected snapshot (20 October 2026)
 

@@ -19,7 +19,8 @@ def test_dashboard_runs_with_distributed_runtime_files(tmp_path):
         "reports/metrics/robustness_results.json",
         "reports/metrics/priority_ranking_metrics.json",
         "reports/metrics/review_corrections_results.json",
-        "reports/figures/shap_feature_importance.png",
+        "reports/metrics/selected_feature_results.json",
+        "reports/figures/lagged_shap_feature_importance.png",
     ]
     for relative in runtime_files:
         target = tmp_path / relative

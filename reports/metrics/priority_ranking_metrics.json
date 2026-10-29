@@ -4,26 +4,88 @@
   "test_target_period": "2024",
   "predicted_score": "45% predicted delay rank + 35% predicted repeat rank + 20% lagged dissatisfaction rank",
   "relevance_definition": "Top-k cells by observed 2024 burden: 55% delay rank + 45% repeat rank",
+  "legacy_lift_interpretation": "Top-k relevance has prevalence k/N, so lift = Precision@k * N/k; it is a rescaling, not independent evidence of usefulness",
   "metrics_by_k": {
     "10": {
+      "hits": 1,
       "precision_at_k": 0.1,
+      "recall_at_k": 0.1,
+      "relevant_cells": 10,
+      "relevance_prevalence": 0.01006036217303823,
       "lift_over_random": 9.940000000000001,
       "ndcg_at_k": 0.8592164595622647
     },
     "20": {
+      "hits": 3,
       "precision_at_k": 0.15,
+      "recall_at_k": 0.15,
+      "relevant_cells": 20,
+      "relevance_prevalence": 0.02012072434607646,
       "lift_over_random": 7.455,
       "ndcg_at_k": 0.8761708933689645
     },
     "99": {
+      "hits": 48,
       "precision_at_k": 0.48484848484848486,
+      "recall_at_k": 0.48484848484848486,
+      "relevant_cells": 99,
+      "relevance_prevalence": 0.09959758551307847,
       "lift_over_random": 4.868074686256505,
       "ndcg_at_k": 0.8977903094521351
     },
     "199": {
+      "hits": 108,
       "precision_at_k": 0.542713567839196,
+      "recall_at_k": 0.542713567839196,
+      "relevant_cells": 199,
+      "relevance_prevalence": 0.20020120724346077,
       "lift_over_random": 2.7108406353374916,
       "ndcg_at_k": 0.9068734404033524
     }
+  },
+  "fixed_threshold": {
+    "score_definition": "55% delay percentile + 45% repeat percentile, relative to frozen February-August 2023 training-outcome distributions",
+    "cutoff_definition": "At or above the 80th percentile of the training burden-score distribution",
+    "cutoff_source": "train only; no validation or 2024 outcomes",
+    "cutoff": 61.90311418685122,
+    "independent_of_queue_k": true,
+    "relevant_cells": 202,
+    "test_cells": 994,
+    "relevance_prevalence": 0.20321931589537223,
+    "metrics_by_k": {
+      "10": {
+        "hits": 9,
+        "precision_at_k": 0.9,
+        "recall_at_k": 0.04455445544554455,
+        "relevant_cells": 202,
+        "relevance_prevalence": 0.20321931589537223,
+        "lift_over_random": 4.428712871287129
+      },
+      "20": {
+        "hits": 18,
+        "precision_at_k": 0.9,
+        "recall_at_k": 0.0891089108910891,
+        "relevant_cells": 202,
+        "relevance_prevalence": 0.20321931589537223,
+        "lift_over_random": 4.428712871287129
+      },
+      "99": {
+        "hits": 69,
+        "precision_at_k": 0.696969696969697,
+        "recall_at_k": 0.3415841584158416,
+        "relevant_cells": 202,
+        "relevance_prevalence": 0.20321931589537223,
+        "lift_over_random": 3.4296429642964297
+      },
+      "199": {
+        "hits": 111,
+        "precision_at_k": 0.5577889447236181,
+        "recall_at_k": 0.5495049504950495,
+        "relevant_cells": 202,
+        "relevance_prevalence": 0.20321931589537223,
+        "lift_over_random": 2.7447634210657244
+      }
+    },
+    "interpretation": "Exploratory burden proxy; cutoff is not a validated municipal service standard"
   }
 }

@@ -55,7 +55,8 @@ To get updates, stop Streamlit, run `git pull`, then run the command again. If d
 | `reports/metrics/robustness_results.json` | Multi-seed robustness |
 | `reports/metrics/priority_ranking_metrics.json` | Ranking evaluation |
 | `reports/metrics/review_corrections_results.json` | Corrected baselines and feature ablations |
-| `reports/figures/shap_feature_importance.png` | Optional feature-importance figure |
+| `reports/metrics/selected_feature_results.json` | Exploratory validation-selected family comparison |
+| `reports/figures/lagged_shap_feature_importance.png` | Optional one-month-ahead feature-importance figure |
 
 All these files are included in the repository. No separate data download or Git LFS is needed. Use `requirements-dashboard.txt`, not the full research `requirements.txt` or `requirements-lock.txt`, for dashboard-only setup.
 

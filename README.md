@@ -11,7 +11,11 @@ An end-to-end, reproducible research project investigating whether aspect-level 
 
 See [DASHBOARD_SETUP.md](DASHBOARD_SETUP.md) for Windows and macOS/Linux setup. Install `requirements-dashboard.txt` for the lightweight dashboard-only environment. The two small aggregate data files needed by the app are included; raw datasets, training packages, model weights, and Git LFS are not required.
 
-## Current corrected snapshot (20 October 2026)
+## Final-review update (29 October 2026)
+
+The final-review manuscript is `TeamNo_16_23BCT0029_FINAL_CORRECTIONS.docx`. An exploratory validation-selected ABSA + RSAT model improves NYC-2024 delay R² from 0.5995 to 0.6228, but its bootstrap interval spans zero and persistence remains stronger (0.8839). Repeat-rate selection retains structured features alone. This narrows the earlier all-family negative result rather than claiming that all language features fail. Strict dashboard top-10 overlap is only 1/10; separate fixed-cutoff results use a training-derived burden definition and must not be confused with that overlap. All 24 tests pass. See `FINAL_CORRECTIONS_UPDATE.md` and the saved metric JSON files for details. Zenodo publication/DOI is deferred to the authors.
+
+## Earlier corrected data snapshot (20 October 2026)
 
 The completed remediation uses 4,204,783 cleaned NYC 311 requests across all 24 operational months from 2023 through 2024, 2,006 integrated cells, and a 1,885-cell one-month-ahead forecasting table. LDA and BERTopic are fitted only on January-July 2023 training text; ABSA uses duplicate-controlled groups with zero cross-split normalized-text overlap; and the full automated suite passes 20/20 tests. The authoritative final metrics are in `reports/FINAL_PROJECT_REPORT.md` and the corrected manuscript is in `outputs/`.
 

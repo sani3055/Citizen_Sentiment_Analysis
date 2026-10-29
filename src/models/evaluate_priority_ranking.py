@@ -20,8 +20,44 @@ TARGETS = ["mean_resolution_delay_hours", "repeat_request_rate_14d"]
 
 
 def precision_at_k(predicted_order, relevant_indices, k):
+    if k < 1 or k > len(predicted_order):
+        raise ValueError("k must be between 1 and the number of ranked cells")
     selected = set(predicted_order[:k])
     return len(selected & set(relevant_indices)) / k
+
+
+def empirical_percentiles(reference, values):
+    """Percentile scores relative to a frozen training distribution."""
+    reference = np.sort(np.asarray(reference, dtype=float))
+    if not len(reference) or not np.isfinite(reference).all():
+        raise ValueError("Reference must be nonempty and finite")
+    return np.searchsorted(reference, values, side="right") / len(reference)
+
+
+def fixed_threshold_relevance(training, test, quantile=0.80):
+    """Fit a burden cutoff using training outcomes only, then freeze it.
+
+    Unlike top-k overlap, neither the score transform nor the relevance cutoff
+    changes when a different queue length k is evaluated.
+    """
+    training_score = np.zeros(len(training))
+    test_score = np.zeros(len(test))
+    for target, weight in zip(TARGETS, [0.55, 0.45]):
+        training_score += 100 * weight * empirical_percentiles(training[target], training[target])
+        test_score += 100 * weight * empirical_percentiles(training[target], test[target])
+    cutoff = float(np.quantile(training_score, quantile))
+    relevant = np.flatnonzero(test_score >= cutoff).tolist()
+    return relevant, cutoff, test_score
+
+
+def binary_ranking_metrics(order, relevant, k):
+    hits = len(set(order[:k]) & set(relevant))
+    prevalence = len(relevant) / len(order)
+    precision = hits / k
+    return {"hits": hits, "precision_at_k": precision,
+            "recall_at_k": hits / len(relevant) if relevant else 0.0,
+            "relevant_cells": len(relevant), "relevance_prevalence": prevalence,
+            "lift_over_random": precision / prevalence if prevalence else None}
 
 
 def main():
@@ -63,8 +99,7 @@ def main():
     metrics = {}
     for k in k_values:
         metrics[str(k)] = {
-            "precision_at_k": float(precision_at_k(predicted_order, observed_order[:k], k)),
-            "lift_over_random": float(precision_at_k(predicted_order, observed_order[:k], k) / (k / n)),
+            **binary_ranking_metrics(predicted_order, observed_order[:k], k),
             "ndcg_at_k": float(
                 ndcg_score(
                     test[["observed_burden_score"]].T.to_numpy(),
@@ -74,13 +109,31 @@ def main():
             ),
         }
 
+    relevant, cutoff, fixed_scores = fixed_threshold_relevance(
+        encoded.loc[encoded["split"].eq("train"), TARGETS], test[TARGETS]
+    )
+    fixed_metrics = {str(k): binary_ranking_metrics(predicted_order, relevant, k) for k in k_values}
+
     output = {
         "evaluation": "One-month-ahead held-out dashboard priority ranking",
         "test_cells": n,
         "test_target_period": "2024",
         "predicted_score": "45% predicted delay rank + 35% predicted repeat rank + 20% lagged dissatisfaction rank",
         "relevance_definition": "Top-k cells by observed 2024 burden: 55% delay rank + 45% repeat rank",
+        "legacy_lift_interpretation": "Top-k relevance has prevalence k/N, so lift = Precision@k * N/k; it is a rescaling, not independent evidence of usefulness",
         "metrics_by_k": metrics,
+        "fixed_threshold": {
+            "score_definition": "55% delay percentile + 45% repeat percentile, relative to frozen February-August 2023 training-outcome distributions",
+            "cutoff_definition": "At or above the 80th percentile of the training burden-score distribution",
+            "cutoff_source": "train only; no validation or 2024 outcomes",
+            "cutoff": cutoff,
+            "independent_of_queue_k": True,
+            "relevant_cells": len(relevant),
+            "test_cells": n,
+            "relevance_prevalence": len(relevant) / n,
+            "metrics_by_k": fixed_metrics,
+            "interpretation": "Exploratory burden proxy; cutoff is not a validated municipal service standard",
+        },
     }
     os.makedirs(os.path.dirname(args.output), exist_ok=True)
     with open(args.output, "w", encoding="utf-8") as handle:

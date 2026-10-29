@@ -9,8 +9,9 @@ authors:
     given-names: Sanidhya
   - family-names: Deb
     given-names: Chinmoy
-version: 1.0.0
-date-released: 2026-10-20
+version: 1.1.0
+date-released: 2026-10-29
+repository-code: "https://github.com/sani3055/Citizen_Sentiment_Analysis"
 institution: "Vellore Institute of Technology, Vellore"
 keywords:
   - smart cities

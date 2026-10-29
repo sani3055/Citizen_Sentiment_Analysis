@@ -1,6 +1,6 @@
 {
   "title": "Citizen Sentiment Analysis of Municipal Services Using Transformer-Based NLP",
-  "description": "Reproducible Team 16 research package containing code, aggregate cell data, metric outputs, figures, tests, and documentation for one-month-ahead municipal outcome forecasting using NYC 311 and Resolution Satisfaction Survey data.",
+  "description": "Team 16 final-review package for exploratory one-month-ahead NYC-2024 municipal forecasting. Includes public code, aggregate cells, original and validation-selected no-VADER family analyses, five-seed uncertainty, raw top-k ranking hits, a separate training-derived fixed burden cutoff, metrics, figures, tests, the revised manuscript, and reproducibility instructions. Selected delay gains remain uncertain and below persistence; conclusions are specific to NYC-2024. Zenodo publication and DOI are pending author action.",
   "upload_type": "software",
   "creators": [
     {"name": "Panbiharwala, Taher", "affiliation": "Vellore Institute of Technology, Vellore"},
@@ -10,6 +10,9 @@
   "keywords": ["smart cities", "municipal services", "NLP", "sentiment analysis", "NYC 311", "forecasting"],
   "access_right": "open",
   "license": "other-open",
-  "version": "1.0.0"
+  "version": "1.1.0",
+  "related_identifiers": [
+    {"identifier": "https://github.com/sani3055/Citizen_Sentiment_Analysis", "relation": "isSupplementTo", "scheme": "url"}
+  ]
 }
 

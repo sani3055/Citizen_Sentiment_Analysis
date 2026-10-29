@@ -1,0 +1,1071 @@
+{
+  "experiment": "Exploratory validation-selected LightGBM augmentation without VADER",
+  "scope": "NYC, target months January-December 2024 only",
+  "selection_rule": "Maximum September-December 2023 validation R2; exact ties use fewer features",
+  "selection_uses_test_outcomes": false,
+  "test_previously_examined": true,
+  "interpretation": "Post-review exploratory refinement; independent future/cross-city confirmation remains necessary",
+  "split_counts": {
+    "test": 994,
+    "train": 578,
+    "val": 313
+  },
+  "feature_groups": {
+    "topics": [
+      "dominant_topic_mode",
+      "topic_entropy",
+      "dominant_bertopic_mode",
+      "bertopic_outlier_rate"
+    ],
+    "ABSA": [
+      "is_aspect_information_intake",
+      "is_aspect_issue_correction",
+      "is_aspect_other",
+      "is_aspect_response_time",
+      "is_aspect_status_updates",
+      "is_aspect_work_quality"
+    ],
+    "RSAT": [
+      "citizen_dissatisfaction_rate",
+      "citizen_satisfaction_rate"
+    ]
+  },
+  "seeds": [
+    42,
+    123,
+    2024,
+    7,
+    99
+  ],
+  "results_by_target": {
+    "mean_resolution_delay_hours": {
+      "validation_candidates": [
+        {
+          "families": [],
+          "features": [
+            "log_request_volume",
+            "month_sin",
+            "month_cos",
+            "borough_BRONX",
+            "borough_BROOKLYN",
+            "borough_MANHATTAN",
+            "borough_QUEENS",
+            "borough_STATEN ISLAND",
+            "service_ABANDONED VEHICLE",
+            "service_BLOCKED DRIVEWAY",
+            "service_DAMAGED TREE",
+            "service_DIRTY CONDITION",
+            "service_ENCAMPMENT",
+            "service_HEAT/HOT WATER",
+            "service_ILLEGAL DUMPING",
+            "service_ILLEGAL PARKING",
+            "service_MISSED COLLECTION",
+            "service_NOISE",
+            "service_NOISE - COMMERCIAL",
+            "service_NOISE - RESIDENTIAL",
+            "service_NOISE - STREET/SIDEWALK",
+            "service_PAINT/PLASTER",
+            "service_PLUMBING",
+            "service_SEWER MAINTENANCE",
+            "service_STREET CONDITION",
+            "service_UNSANITARY CONDITION",
+            "service_WATER MAINTENANCE"
+          ],
+          "validation": {
+            "r2": 0.6945001879392675,
+            "mae": 65.60836933723276,
+            "rmse": 127.12350539690688
+          }
+        },
+        {
+          "families": [
+            "topics"
+          ],
+          "features": [
+            "log_request_volume",
+            "month_sin",
+            "month_cos",
+            "borough_BRONX",
+            "borough_BROOKLYN",
+            "borough_MANHATTAN",
+            "borough_QUEENS",
+            "borough_STATEN ISLAND",
+            "service_ABANDONED VEHICLE",
+            "service_BLOCKED DRIVEWAY",
+            "service_DAMAGED TREE",
+            "service_DIRTY CONDITION",
+            "service_ENCAMPMENT",
+            "service_HEAT/HOT WATER",
+            "service_ILLEGAL DUMPING",
+            "service_ILLEGAL PARKING",
+            "service_MISSED COLLECTION",
+            "service_NOISE",
+            "service_NOISE - COMMERCIAL",
+            "service_NOISE - RESIDENTIAL",
+            "service_NOISE - STREET/SIDEWALK",
+            "service_PAINT/PLASTER",
+            "service_PLUMBING",
+            "service_SEWER MAINTENANCE",
+            "service_STREET CONDITION",
+            "service_UNSANITARY CONDITION",
+            "service_WATER MAINTENANCE",
+            "dominant_topic_mode",
+            "topic_entropy",
+            "dominant_bertopic_mode",
+            "bertopic_outlier_rate"
+          ],
+          "validation": {
+            "r2": 0.7095037824442814,
+            "mae": 58.37159962731149,
+            "rmse": 123.9625859048695
+          }
+        },
+        {
+          "families": [
+            "ABSA"
+          ],
+          "features": [
+            "log_request_volume",
+            "month_sin",
+            "month_cos",
+            "borough_BRONX",
+            "borough_BROOKLYN",
+            "borough_MANHATTAN",
+            "borough_QUEENS",
+            "borough_STATEN ISLAND",
+            "service_ABANDONED VEHICLE",
+            "service_BLOCKED DRIVEWAY",
+            "service_DAMAGED TREE",
+            "service_DIRTY CONDITION",
+            "service_ENCAMPMENT",
+            "service_HEAT/HOT WATER",
+            "service_ILLEGAL DUMPING",
+            "service_ILLEGAL PARKING",
+            "service_MISSED COLLECTION",
+            "service_NOISE",
+            "service_NOISE - COMMERCIAL",
+            "service_NOISE - RESIDENTIAL",
+            "service_NOISE - STREET/SIDEWALK",
+            "service_PAINT/PLASTER",
+            "service_PLUMBING",
+            "service_SEWER MAINTENANCE",
+            "service_STREET CONDITION",
+            "service_UNSANITARY CONDITION",
+            "service_WATER MAINTENANCE",
+            "is_aspect_information_intake",
+            "is_aspect_issue_correction",
+            "is_aspect_other",
+            "is_aspect_response_time",
+            "is_aspect_status_updates",
+            "is_aspect_work_quality"
+          ],
+          "validation": {
+            "r2": 0.6986429797332451,
+            "mae": 62.06557642290338,
+            "rmse": 126.25862131753546
+          }
+        },
+        {
+          "families": [
+            "RSAT"
+          ],
+          "features": [
+            "log_request_volume",
+            "month_sin",
+            "month_cos",
+            "borough_BRONX",
+            "borough_BROOKLYN",
+            "borough_MANHATTAN",
+            "borough_QUEENS",
+            "borough_STATEN ISLAND",
+            "service_ABANDONED VEHICLE",
+            "service_BLOCKED DRIVEWAY",
+            "service_DAMAGED TREE",
+            "service_DIRTY CONDITION",
+            "service_ENCAMPMENT",
+            "service_HEAT/HOT WATER",
+            "service_ILLEGAL DUMPING",
+            "service_ILLEGAL PARKING",
+            "service_MISSED COLLECTION",
+            "service_NOISE",
+            "service_NOISE - COMMERCIAL",
+            "service_NOISE - RESIDENTIAL",
+            "service_NOISE - STREET/SIDEWALK",
+            "service_PAINT/PLASTER",
+            "service_PLUMBING",
+            "service_SEWER MAINTENANCE",
+            "service_STREET CONDITION",
+            "service_UNSANITARY CONDITION",
+            "service_WATER MAINTENANCE",
+            "citizen_dissatisfaction_rate",
+            "citizen_satisfaction_rate"
+          ],
+          "validation": {
+            "r2": 0.6926136404358698,
+            "mae": 67.3998162672176,
+            "rmse": 127.51541304306394
+          }
+        },
+        {
+          "families": [
+            "topics",
+            "ABSA"
+          ],
+          "features": [
+            "log_request_volume",
+            "month_sin",
+            "month_cos",
+            "borough_BRONX",
+            "borough_BROOKLYN",
+            "borough_MANHATTAN",
+            "borough_QUEENS",
+            "borough_STATEN ISLAND",
+            "service_ABANDONED VEHICLE",
+            "service_BLOCKED DRIVEWAY",
+            "service_DAMAGED TREE",
+            "service_DIRTY CONDITION",
+            "service_ENCAMPMENT",
+            "service_HEAT/HOT WATER",
+            "service_ILLEGAL DUMPING",
+            "service_ILLEGAL PARKING",
+            "service_MISSED COLLECTION",
+            "service_NOISE",
+            "service_NOISE - COMMERCIAL",
+            "service_NOISE - RESIDENTIAL",
+            "service_NOISE - STREET/SIDEWALK",
+            "service_PAINT/PLASTER",
+            "service_PLUMBING",
+            "service_SEWER MAINTENANCE",
+            "service_STREET CONDITION",
+            "service_UNSANITARY CONDITION",
+            "service_WATER MAINTENANCE",
+            "dominant_topic_mode",
+            "topic_entropy",
+            "dominant_bertopic_mode",
+            "bertopic_outlier_rate",
+            "is_aspect_information_intake",
+            "is_aspect_issue_correction",
+            "is_aspect_other",
+            "is_aspect_response_time",
+            "is_aspect_status_updates",
+            "is_aspect_work_quality"
+          ],
+          "validation": {
+            "r2": 0.6960272083289731,
+            "mae": 62.64228142954085,
+            "rmse": 126.80539821743137
+          }
+        },
+        {
+          "families": [
+            "topics",
+            "RSAT"
+          ],
+          "features": [
+            "log_request_volume",
+            "month_sin",
+            "month_cos",
+            "borough_BRONX",
+            "borough_BROOKLYN",
+            "borough_MANHATTAN",
+            "borough_QUEENS",
+            "borough_STATEN ISLAND",
+            "service_ABANDONED VEHICLE",
+            "service_BLOCKED DRIVEWAY",
+            "service_DAMAGED TREE",
+            "service_DIRTY CONDITION",
+            "service_ENCAMPMENT",
+            "service_HEAT/HOT WATER",
+            "service_ILLEGAL DUMPING",
+            "service_ILLEGAL PARKING",
+            "service_MISSED COLLECTION",
+            "service_NOISE",
+            "service_NOISE - COMMERCIAL",
+            "service_NOISE - RESIDENTIAL",
+            "service_NOISE - STREET/SIDEWALK",
+            "service_PAINT/PLASTER",
+            "service_PLUMBING",
+            "service_SEWER MAINTENANCE",
+            "service_STREET CONDITION",
+            "service_UNSANITARY CONDITION",
+            "service_WATER MAINTENANCE",
+            "dominant_topic_mode",
+            "topic_entropy",
+            "dominant_bertopic_mode",
+            "bertopic_outlier_rate",
+            "citizen_dissatisfaction_rate",
+            "citizen_satisfaction_rate"
+          ],
+          "validation": {
+            "r2": 0.7104890613728283,
+            "mae": 60.58215492290655,
+            "rmse": 123.75218477678169
+          }
+        },
+        {
+          "families": [
+            "ABSA",
+            "RSAT"
+          ],
+          "features": [
+            "log_request_volume",
+            "month_sin",
+            "month_cos",
+            "borough_BRONX",
+            "borough_BROOKLYN",
+            "borough_MANHATTAN",
+            "borough_QUEENS",
+            "borough_STATEN ISLAND",
+            "service_ABANDONED VEHICLE",
+            "service_BLOCKED DRIVEWAY",
+            "service_DAMAGED TREE",
+            "service_DIRTY CONDITION",
+            "service_ENCAMPMENT",
+            "service_HEAT/HOT WATER",
+            "service_ILLEGAL DUMPING",
+            "service_ILLEGAL PARKING",
+            "service_MISSED COLLECTION",
+            "service_NOISE",
+            "service_NOISE - COMMERCIAL",
+            "service_NOISE - RESIDENTIAL",
+            "service_NOISE - STREET/SIDEWALK",
+            "service_PAINT/PLASTER",
+            "service_PLUMBING",
+            "service_SEWER MAINTENANCE",
+            "service_STREET CONDITION",
+            "service_UNSANITARY CONDITION",
+            "service_WATER MAINTENANCE",
+            "is_aspect_information_intake",
+            "is_aspect_issue_correction",
+            "is_aspect_other",
+            "is_aspect_response_time",
+            "is_aspect_status_updates",
+            "is_aspect_work_quality",
+            "citizen_dissatisfaction_rate",
+            "citizen_satisfaction_rate"
+          ],
+          "validation": {
+            "r2": 0.7144282099814638,
+            "mae": 61.52327499429813,
+            "rmse": 122.90740182982752
+          }
+        },
+        {
+          "families": [
+            "topics",
+            "ABSA",
+            "RSAT"
+          ],
+          "features": [
+            "log_request_volume",
+            "month_sin",
+            "month_cos",
+            "borough_BRONX",
+            "borough_BROOKLYN",
+            "borough_MANHATTAN",
+            "borough_QUEENS",
+            "borough_STATEN ISLAND",
+            "service_ABANDONED VEHICLE",
+            "service_BLOCKED DRIVEWAY",
+            "service_DAMAGED TREE",
+            "service_DIRTY CONDITION",
+            "service_ENCAMPMENT",
+            "service_HEAT/HOT WATER",
+            "service_ILLEGAL DUMPING",
+            "service_ILLEGAL PARKING",
+            "service_MISSED COLLECTION",
+            "service_NOISE",
+            "service_NOISE - COMMERCIAL",
+            "service_NOISE - RESIDENTIAL",
+            "service_NOISE - STREET/SIDEWALK",
+            "service_PAINT/PLASTER",
+            "service_PLUMBING",
+            "service_SEWER MAINTENANCE",
+            "service_STREET CONDITION",
+            "service_UNSANITARY CONDITION",
+            "service_WATER MAINTENANCE",
+            "dominant_topic_mode",
+            "topic_entropy",
+            "dominant_bertopic_mode",
+            "bertopic_outlier_rate",
+            "is_aspect_information_intake",
+            "is_aspect_issue_correction",
+            "is_aspect_other",
+            "is_aspect_response_time",
+            "is_aspect_status_updates",
+            "is_aspect_work_quality",
+            "citizen_dissatisfaction_rate",
+            "citizen_satisfaction_rate"
+          ],
+          "validation": {
+            "r2": 0.6925575676519649,
+            "mae": 63.92319712940731,
+            "rmse": 127.52704306165252
+          }
+        }
+      ],
+      "selected_families": [
+        "ABSA",
+        "RSAT"
+      ],
+      "selected_features": [
+        "log_request_volume",
+        "month_sin",
+        "month_cos",
+        "borough_BRONX",
+        "borough_BROOKLYN",
+        "borough_MANHATTAN",
+        "borough_QUEENS",
+        "borough_STATEN ISLAND",
+        "service_ABANDONED VEHICLE",
+        "service_BLOCKED DRIVEWAY",
+        "service_DAMAGED TREE",
+        "service_DIRTY CONDITION",
+        "service_ENCAMPMENT",
+        "service_HEAT/HOT WATER",
+        "service_ILLEGAL DUMPING",
+        "service_ILLEGAL PARKING",
+        "service_MISSED COLLECTION",
+        "service_NOISE",
+        "service_NOISE - COMMERCIAL",
+        "service_NOISE - RESIDENTIAL",
+        "service_NOISE - STREET/SIDEWALK",
+        "service_PAINT/PLASTER",
+        "service_PLUMBING",
+        "service_SEWER MAINTENANCE",
+        "service_STREET CONDITION",
+        "service_UNSANITARY CONDITION",
+        "service_WATER MAINTENANCE",
+        "is_aspect_information_intake",
+        "is_aspect_issue_correction",
+        "is_aspect_other",
+        "is_aspect_response_time",
+        "is_aspect_status_updates",
+        "is_aspect_work_quality",
+        "citizen_dissatisfaction_rate",
+        "citizen_satisfaction_rate"
+      ],
+      "selected_validation_metrics": {
+        "r2": 0.7144282099814638,
+        "mae": 61.52327499429813,
+        "rmse": 122.90740182982752
+      },
+      "primary_seed_42": {
+        "seed": 42,
+        "baseline": {
+          "r2": 0.5994833673391526,
+          "mae": 56.183902051145864,
+          "rmse": 113.62511226225847
+        },
+        "selected": {
+          "r2": 0.6228130417125064,
+          "mae": 53.508676775626,
+          "rmse": 110.26619316942265
+        },
+        "delta_r2": 0.02332967437335376,
+        "paired_absolute_error_p": 0.10870451140197544
+      },
+      "seed_results": [
+        {
+          "seed": 42,
+          "baseline": {
+            "r2": 0.5994833673391526,
+            "mae": 56.183902051145864,
+            "rmse": 113.62511226225847
+          },
+          "selected": {
+            "r2": 0.6228130417125064,
+            "mae": 53.508676775626,
+            "rmse": 110.26619316942265
+          },
+          "delta_r2": 0.02332967437335376,
+          "paired_absolute_error_p": 0.10870451140197544
+        },
+        {
+          "seed": 123,
+          "baseline": {
+            "r2": 0.608011974138707,
+            "mae": 55.93046525915746,
+            "rmse": 112.40883519821088
+          },
+          "selected": {
+            "r2": 0.6380949384884214,
+            "mae": 52.59286843251209,
+            "rmse": 108.00935578559046
+          },
+          "delta_r2": 0.03008296434971436,
+          "paired_absolute_error_p": 0.046757956191812625
+        },
+        {
+          "seed": 2024,
+          "baseline": {
+            "r2": 0.6067584549807019,
+            "mae": 56.47418347221603,
+            "rmse": 112.58842507000843
+          },
+          "selected": {
+            "r2": 0.620752188059313,
+            "mae": 53.9374051251736,
+            "rmse": 110.56701604826442
+          },
+          "delta_r2": 0.01399373307861107,
+          "paired_absolute_error_p": 0.14959677205927763
+        },
+        {
+          "seed": 7,
+          "baseline": {
+            "r2": 0.6036030287420592,
+            "mae": 56.35463187203629,
+            "rmse": 113.03923532513757
+          },
+          "selected": {
+            "r2": 0.6186878669558362,
+            "mae": 54.28868605014994,
+            "rmse": 110.8675267737395
+          },
+          "delta_r2": 0.015084838213777041,
+          "paired_absolute_error_p": 0.24762274286463043
+        },
+        {
+          "seed": 99,
+          "baseline": {
+            "r2": 0.602772376342305,
+            "mae": 56.22270035065455,
+            "rmse": 113.15761056547021
+          },
+          "selected": {
+            "r2": 0.6271089228851168,
+            "mae": 53.808704631162584,
+            "rmse": 109.63646971965497
+          },
+          "delta_r2": 0.02433654654281181,
+          "paired_absolute_error_p": 0.15998400361696402
+        }
+      ],
+      "mean_delta_r2": 0.02136555131165361,
+      "std_delta_r2": 0.006754053287102408,
+      "all_non_vader_reference": {
+        "r2": 0.6115423479781271,
+        "mae": 53.96838421386572,
+        "rmse": 111.90149471689224
+      },
+      "bootstrap": {
+        "n_resamples": 2000,
+        "delta_r2_95_percentile_interval": [
+          -0.026269369211505814,
+          0.07615411730595073
+        ],
+        "method": "Paired held-out-cell bootstrap of seed-mean predictions; not a cluster bootstrap"
+      }
+    },
+    "repeat_request_rate_14d": {
+      "validation_candidates": [
+        {
+          "families": [],
+          "features": [
+            "log_request_volume",
+            "month_sin",
+            "month_cos",
+            "borough_BRONX",
+            "borough_BROOKLYN",
+            "borough_MANHATTAN",
+            "borough_QUEENS",
+            "borough_STATEN ISLAND",
+            "service_ABANDONED VEHICLE",
+            "service_BLOCKED DRIVEWAY",
+            "service_DAMAGED TREE",
+            "service_DIRTY CONDITION",
+            "service_ENCAMPMENT",
+            "service_HEAT/HOT WATER",
+            "service_ILLEGAL DUMPING",
+            "service_ILLEGAL PARKING",
+            "service_MISSED COLLECTION",
+            "service_NOISE",
+            "service_NOISE - COMMERCIAL",
+            "service_NOISE - RESIDENTIAL",
+            "service_NOISE - STREET/SIDEWALK",
+            "service_PAINT/PLASTER",
+            "service_PLUMBING",
+            "service_SEWER MAINTENANCE",
+            "service_STREET CONDITION",
+            "service_UNSANITARY CONDITION",
+            "service_WATER MAINTENANCE"
+          ],
+          "validation": {
+            "r2": 0.9037430177838119,
+            "mae": 0.042681223343276335,
+            "rmse": 0.05575935071921445
+          }
+        },
+        {
+          "families": [
+            "topics"
+          ],
+          "features": [
+            "log_request_volume",
+            "month_sin",
+            "month_cos",
+            "borough_BRONX",
+            "borough_BROOKLYN",
+            "borough_MANHATTAN",
+            "borough_QUEENS",
+            "borough_STATEN ISLAND",
+            "service_ABANDONED VEHICLE",
+            "service_BLOCKED DRIVEWAY",
+            "service_DAMAGED TREE",
+            "service_DIRTY CONDITION",
+            "service_ENCAMPMENT",
+            "service_HEAT/HOT WATER",
+            "service_ILLEGAL DUMPING",
+            "service_ILLEGAL PARKING",
+            "service_MISSED COLLECTION",
+            "service_NOISE",
+            "service_NOISE - COMMERCIAL",
+            "service_NOISE - RESIDENTIAL",
+            "service_NOISE - STREET/SIDEWALK",
+            "service_PAINT/PLASTER",
+            "service_PLUMBING",
+            "service_SEWER MAINTENANCE",
+            "service_STREET CONDITION",
+            "service_UNSANITARY CONDITION",
+            "service_WATER MAINTENANCE",
+            "dominant_topic_mode",
+            "topic_entropy",
+            "dominant_bertopic_mode",
+            "bertopic_outlier_rate"
+          ],
+          "validation": {
+            "r2": 0.8045987578577616,
+            "mae": 0.04442775472099889,
+            "rmse": 0.07944475813592554
+          }
+        },
+        {
+          "families": [
+            "ABSA"
+          ],
+          "features": [
+            "log_request_volume",
+            "month_sin",
+            "month_cos",
+            "borough_BRONX",
+            "borough_BROOKLYN",
+            "borough_MANHATTAN",
+            "borough_QUEENS",
+            "borough_STATEN ISLAND",
+            "service_ABANDONED VEHICLE",
+            "service_BLOCKED DRIVEWAY",
+            "service_DAMAGED TREE",
+            "service_DIRTY CONDITION",
+            "service_ENCAMPMENT",
+            "service_HEAT/HOT WATER",
+            "service_ILLEGAL DUMPING",
+            "service_ILLEGAL PARKING",
+            "service_MISSED COLLECTION",
+            "service_NOISE",
+            "service_NOISE - COMMERCIAL",
+            "service_NOISE - RESIDENTIAL",
+            "service_NOISE - STREET/SIDEWALK",
+            "service_PAINT/PLASTER",
+            "service_PLUMBING",
+            "service_SEWER MAINTENANCE",
+            "service_STREET CONDITION",
+            "service_UNSANITARY CONDITION",
+            "service_WATER MAINTENANCE",
+            "is_aspect_information_intake",
+            "is_aspect_issue_correction",
+            "is_aspect_other",
+            "is_aspect_response_time",
+            "is_aspect_status_updates",
+            "is_aspect_work_quality"
+          ],
+          "validation": {
+            "r2": 0.8971710404776627,
+            "mae": 0.04085889175109023,
+            "rmse": 0.05763141832595355
+          }
+        },
+        {
+          "families": [
+            "RSAT"
+          ],
+          "features": [
+            "log_request_volume",
+            "month_sin",
+            "month_cos",
+            "borough_BRONX",
+            "borough_BROOKLYN",
+            "borough_MANHATTAN",
+            "borough_QUEENS",
+            "borough_STATEN ISLAND",
+            "service_ABANDONED VEHICLE",
+            "service_BLOCKED DRIVEWAY",
+            "service_DAMAGED TREE",
+            "service_DIRTY CONDITION",
+            "service_ENCAMPMENT",
+            "service_HEAT/HOT WATER",
+            "service_ILLEGAL DUMPING",
+            "service_ILLEGAL PARKING",
+            "service_MISSED COLLECTION",
+            "service_NOISE",
+            "service_NOISE - COMMERCIAL",
+            "service_NOISE - RESIDENTIAL",
+            "service_NOISE - STREET/SIDEWALK",
+            "service_PAINT/PLASTER",
+            "service_PLUMBING",
+            "service_SEWER MAINTENANCE",
+            "service_STREET CONDITION",
+            "service_UNSANITARY CONDITION",
+            "service_WATER MAINTENANCE",
+            "citizen_dissatisfaction_rate",
+            "citizen_satisfaction_rate"
+          ],
+          "validation": {
+            "r2": 0.8927028551288245,
+            "mae": 0.044557008144815946,
+            "rmse": 0.05887022151877543
+          }
+        },
+        {
+          "families": [
+            "topics",
+            "ABSA"
+          ],
+          "features": [
+            "log_request_volume",
+            "month_sin",
+            "month_cos",
+            "borough_BRONX",
+            "borough_BROOKLYN",
+            "borough_MANHATTAN",
+            "borough_QUEENS",
+            "borough_STATEN ISLAND",
+            "service_ABANDONED VEHICLE",
+            "service_BLOCKED DRIVEWAY",
+            "service_DAMAGED TREE",
+            "service_DIRTY CONDITION",
+            "service_ENCAMPMENT",
+            "service_HEAT/HOT WATER",
+            "service_ILLEGAL DUMPING",
+            "service_ILLEGAL PARKING",
+            "service_MISSED COLLECTION",
+            "service_NOISE",
+            "service_NOISE - COMMERCIAL",
+            "service_NOISE - RESIDENTIAL",
+            "service_NOISE - STREET/SIDEWALK",
+            "service_PAINT/PLASTER",
+            "service_PLUMBING",
+            "service_SEWER MAINTENANCE",
+            "service_STREET CONDITION",
+            "service_UNSANITARY CONDITION",
+            "service_WATER MAINTENANCE",
+            "dominant_topic_mode",
+            "topic_entropy",
+            "dominant_bertopic_mode",
+            "bertopic_outlier_rate",
+            "is_aspect_information_intake",
+            "is_aspect_issue_correction",
+            "is_aspect_other",
+            "is_aspect_response_time",
+            "is_aspect_status_updates",
+            "is_aspect_work_quality"
+          ],
+          "validation": {
+            "r2": 0.8185162698278752,
+            "mae": 0.04312298352318548,
+            "rmse": 0.0765632632784598
+          }
+        },
+        {
+          "families": [
+            "topics",
+            "RSAT"
+          ],
+          "features": [
+            "log_request_volume",
+            "month_sin",
+            "month_cos",
+            "borough_BRONX",
+            "borough_BROOKLYN",
+            "borough_MANHATTAN",
+            "borough_QUEENS",
+            "borough_STATEN ISLAND",
+            "service_ABANDONED VEHICLE",
+            "service_BLOCKED DRIVEWAY",
+            "service_DAMAGED TREE",
+            "service_DIRTY CONDITION",
+            "service_ENCAMPMENT",
+            "service_HEAT/HOT WATER",
+            "service_ILLEGAL DUMPING",
+            "service_ILLEGAL PARKING",
+            "service_MISSED COLLECTION",
+            "service_NOISE",
+            "service_NOISE - COMMERCIAL",
+            "service_NOISE - RESIDENTIAL",
+            "service_NOISE - STREET/SIDEWALK",
+            "service_PAINT/PLASTER",
+            "service_PLUMBING",
+            "service_SEWER MAINTENANCE",
+            "service_STREET CONDITION",
+            "service_UNSANITARY CONDITION",
+            "service_WATER MAINTENANCE",
+            "dominant_topic_mode",
+            "topic_entropy",
+            "dominant_bertopic_mode",
+            "bertopic_outlier_rate",
+            "citizen_dissatisfaction_rate",
+            "citizen_satisfaction_rate"
+          ],
+          "validation": {
+            "r2": 0.8323368044964663,
+            "mae": 0.04418405341454955,
+            "rmse": 0.0735902802274794
+          }
+        },
+        {
+          "families": [
+            "ABSA",
+            "RSAT"
+          ],
+          "features": [
+            "log_request_volume",
+            "month_sin",
+            "month_cos",
+            "borough_BRONX",
+            "borough_BROOKLYN",
+            "borough_MANHATTAN",
+            "borough_QUEENS",
+            "borough_STATEN ISLAND",
+            "service_ABANDONED VEHICLE",
+            "service_BLOCKED DRIVEWAY",
+            "service_DAMAGED TREE",
+            "service_DIRTY CONDITION",
+            "service_ENCAMPMENT",
+            "service_HEAT/HOT WATER",
+            "service_ILLEGAL DUMPING",
+            "service_ILLEGAL PARKING",
+            "service_MISSED COLLECTION",
+            "service_NOISE",
+            "service_NOISE - COMMERCIAL",
+            "service_NOISE - RESIDENTIAL",
+            "service_NOISE - STREET/SIDEWALK",
+            "service_PAINT/PLASTER",
+            "service_PLUMBING",
+            "service_SEWER MAINTENANCE",
+            "service_STREET CONDITION",
+            "service_UNSANITARY CONDITION",
+            "service_WATER MAINTENANCE",
+            "is_aspect_information_intake",
+            "is_aspect_issue_correction",
+            "is_aspect_other",
+            "is_aspect_response_time",
+            "is_aspect_status_updates",
+            "is_aspect_work_quality",
+            "citizen_dissatisfaction_rate",
+            "citizen_satisfaction_rate"
+          ],
+          "validation": {
+            "r2": 0.8982498483591314,
+            "mae": 0.04033093194707349,
+            "rmse": 0.05732830741774374
+          }
+        },
+        {
+          "families": [
+            "topics",
+            "ABSA",
+            "RSAT"
+          ],
+          "features": [
+            "log_request_volume",
+            "month_sin",
+            "month_cos",
+            "borough_BRONX",
+            "borough_BROOKLYN",
+            "borough_MANHATTAN",
+            "borough_QUEENS",
+            "borough_STATEN ISLAND",
+            "service_ABANDONED VEHICLE",
+            "service_BLOCKED DRIVEWAY",
+            "service_DAMAGED TREE",
+            "service_DIRTY CONDITION",
+            "service_ENCAMPMENT",
+            "service_HEAT/HOT WATER",
+            "service_ILLEGAL DUMPING",
+            "service_ILLEGAL PARKING",
+            "service_MISSED COLLECTION",
+            "service_NOISE",
+            "service_NOISE - COMMERCIAL",
+            "service_NOISE - RESIDENTIAL",
+            "service_NOISE - STREET/SIDEWALK",
+            "service_PAINT/PLASTER",
+            "service_PLUMBING",
+            "service_SEWER MAINTENANCE",
+            "service_STREET CONDITION",
+            "service_UNSANITARY CONDITION",
+            "service_WATER MAINTENANCE",
+            "dominant_topic_mode",
+            "topic_entropy",
+            "dominant_bertopic_mode",
+            "bertopic_outlier_rate",
+            "is_aspect_information_intake",
+            "is_aspect_issue_correction",
+            "is_aspect_other",
+            "is_aspect_response_time",
+            "is_aspect_status_updates",
+            "is_aspect_work_quality",
+            "citizen_dissatisfaction_rate",
+            "citizen_satisfaction_rate"
+          ],
+          "validation": {
+            "r2": 0.8353147506151795,
+            "mae": 0.04388484371709738,
+            "rmse": 0.07293381616190116
+          }
+        }
+      ],
+      "selected_families": [],
+      "selected_features": [
+        "log_request_volume",
+        "month_sin",
+        "month_cos",
+        "borough_BRONX",
+        "borough_BROOKLYN",
+        "borough_MANHATTAN",
+        "borough_QUEENS",
+        "borough_STATEN ISLAND",
+        "service_ABANDONED VEHICLE",
+        "service_BLOCKED DRIVEWAY",
+        "service_DAMAGED TREE",
+        "service_DIRTY CONDITION",
+        "service_ENCAMPMENT",
+        "service_HEAT/HOT WATER",
+        "service_ILLEGAL DUMPING",
+        "service_ILLEGAL PARKING",
+        "service_MISSED COLLECTION",
+        "service_NOISE",
+        "service_NOISE - COMMERCIAL",
+        "service_NOISE - RESIDENTIAL",
+        "service_NOISE - STREET/SIDEWALK",
+        "service_PAINT/PLASTER",
+        "service_PLUMBING",
+        "service_SEWER MAINTENANCE",
+        "service_STREET CONDITION",
+        "service_UNSANITARY CONDITION",
+        "service_WATER MAINTENANCE"
+      ],
+      "selected_validation_metrics": {
+        "r2": 0.9037430177838119,
+        "mae": 0.042681223343276335,
+        "rmse": 0.05575935071921445
+      },
+      "primary_seed_42": {
+        "seed": 42,
+        "baseline": {
+          "r2": 0.9224444913322765,
+          "mae": 0.0370115602750539,
+          "rmse": 0.04995892644287294
+        },
+        "selected": {
+          "r2": 0.9224444913322765,
+          "mae": 0.0370115602750539,
+          "rmse": 0.04995892644287294
+        },
+        "delta_r2": 0.0,
+        "paired_absolute_error_p": null
+      },
+      "seed_results": [
+        {
+          "seed": 42,
+          "baseline": {
+            "r2": 0.9224444913322765,
+            "mae": 0.0370115602750539,
+            "rmse": 0.04995892644287294
+          },
+          "selected": {
+            "r2": 0.9224444913322765,
+            "mae": 0.0370115602750539,
+            "rmse": 0.04995892644287294
+          },
+          "delta_r2": 0.0,
+          "paired_absolute_error_p": null
+        },
+        {
+          "seed": 123,
+          "baseline": {
+            "r2": 0.9241512038662916,
+            "mae": 0.03628687412080496,
+            "rmse": 0.049406162000358446
+          },
+          "selected": {
+            "r2": 0.9241512038662916,
+            "mae": 0.03628687412080496,
+            "rmse": 0.049406162000358446
+          },
+          "delta_r2": 0.0,
+          "paired_absolute_error_p": null
+        },
+        {
+          "seed": 2024,
+          "baseline": {
+            "r2": 0.9232693683211687,
+            "mae": 0.036832283619072835,
+            "rmse": 0.049692535744084484
+          },
+          "selected": {
+            "r2": 0.9232693683211687,
+            "mae": 0.036832283619072835,
+            "rmse": 0.049692535744084484
+          },
+          "delta_r2": 0.0,
+          "paired_absolute_error_p": null
+        },
+        {
+          "seed": 7,
+          "baseline": {
+            "r2": 0.9242416380332036,
+            "mae": 0.03643066719840826,
+            "rmse": 0.049376699847241946
+          },
+          "selected": {
+            "r2": 0.9242416380332036,
+            "mae": 0.03643066719840826,
+            "rmse": 0.049376699847241946
+          },
+          "delta_r2": 0.0,
+          "paired_absolute_error_p": null
+        },
+        {
+          "seed": 99,
+          "baseline": {
+            "r2": 0.9229035769536911,
+            "mae": 0.03676999541208133,
+            "rmse": 0.04981084239787049
+          },
+          "selected": {
+            "r2": 0.9229035769536911,
+            "mae": 0.03676999541208133,
+            "rmse": 0.04981084239787049
+          },
+          "delta_r2": 0.0,
+          "paired_absolute_error_p": null
+        }
+      ],
+      "mean_delta_r2": 0.0,
+      "std_delta_r2": 0.0,
+      "all_non_vader_reference": {
+        "r2": 0.9239971117210937,
+        "mae": 0.03511380080150952,
+        "rmse": 0.04945632257746637
+      },
+      "bootstrap": {
+        "n_resamples": 2000,
+        "delta_r2_95_percentile_interval": [
+          0.0,
+          0.0
+        ],
+        "method": "Paired held-out-cell bootstrap of seed-mean predictions; not a cluster bootstrap"
+      }
+    }
+  }
+}
