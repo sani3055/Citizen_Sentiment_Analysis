@@ -12,6 +12,8 @@ data/raw/*.csv
 data/raw/*.json
 data/processed/*.csv
 *.parquet
+!data/processed/integrated_cell_dataset.parquet
+!data/processed/heldout_priority_queue.parquet
 
 # Model weights & large checkpoints
 artifacts/models/

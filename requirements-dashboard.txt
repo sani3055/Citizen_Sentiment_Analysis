@@ -1,0 +1,6 @@
+# Dashboard only: no model training, GPU, or NLP dependencies required.
+streamlit>=1.35.0,<2
+plotly>=5.20.0,<8
+pandas>=2.2.0,<4
+numpy>=1.26.0,<3
+pyarrow>=15.0.0,<26
